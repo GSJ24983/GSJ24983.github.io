@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WhatsApp: groups within groups - Case study - Gaurav Joshi</title>
+<meta name="description" content="Feature-recommendation case study: a group-to-subgroup tree and a Moderator role for WhatsApp, specified in early 2020 - about 2.5 years before WhatsApp shipped Communities.">
+<meta name="author" content="Gaurav Joshi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+<header class="nav">
+  <div class="wrap">
+    <span class="name"><a href="index.html">Gaurav Joshi</a></span>
+    <nav>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#services">Work with me</a>
+      <a class="hire" href="index.html#contact">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="cs-hero" style="border-top:none">
+    <a class="cs-back" href="index.html#work">← All work</a>
+    <div class="eyebrow">Case study &middot; Feature recommendation &amp; PRD craft</div>
+    <h1>Groups within groups - a moderation model for WhatsApp</h1>
+    <p class="one">An end-to-end feature recommendation: a group-to-subgroup tree, plus a new Moderator role, so large communities could finally be structured and moderated.</p>
+    <div class="cs-meta">
+      <div><div class="k">My role</div><div class="v">Product manager</div></div>
+      <div><div class="k">When</div><div class="v">Early 2020</div></div>
+      <div><div class="k">Type</div><div class="v">Feature rec / PRD</div></div>
+      <div><div class="k">Benchmark</div><div class="v">vs Discord</div></div>
+    </div>
+    <div style="margin-top:20px"><a class="btn primary" href="whatsapp-feature-recommendation.pdf" target="_blank" rel="noopener">View the full deck (PDF)</a></div>
+  </section>
+</div>
+
+<div class="wrap">
+
+  <!-- FORESIGHT CALLOUT -->
+  <section class="cs-section" style="border-top:none;padding-top:8px">
+    <div class="callout">
+      <div class="tag">Why this case matters</div>
+      <h3>Proposed in 2020. Shipped by WhatsApp in 2022.</h3>
+      <p>I specified a <b>group-to-subgroup structure with admin and moderator roles and announcements</b> in early 2020. WhatsApp announced <b>Communities</b> - its own "groups within groups", with sub-groups, admin controls and announcement groups - in <b>April 2022</b>, and rolled it out globally that November. Same shape, roughly two and a half years earlier. This isn't a write-up of an existing feature; it's the record of calling one before the platform did.</p>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="n">~2.5 yrs</div><div class="l">ahead of WhatsApp Communities</div></div>
+      <div class="metric"><div class="n">~$9.6B</div><div class="l">communication-software market (2020)</div></div>
+      <div class="metric"><div class="n">4</div><div class="l">releases planned, create → act</div></div>
+      <div class="metric"><div class="n">3</div><div class="l">personas: business, PM, education</div></div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <h2>The idea</h2>
+    <p class="lead">Big groups don't scale. My proposal: nest groups into <b>sub-groups</b>, and split authority with a new <b>Moderator</b> role alongside Admin.</p>
+    <div class="cs-cover-lg">
+      <svg viewBox="0 0 260 190" xmlns="http://www.w3.org/2000/svg" aria-label="Group to subgroup tree with roles">
+        <g stroke="#8C74A6" stroke-width="1.8" fill="none"><path d="M130 60 V84 M70 84 H190 M70 84 V100 M130 84 V100 M190 84 V100"/></g>
+        <rect x="98" y="32" width="64" height="28" rx="6" fill="#38215A" stroke="#C69A4C" stroke-width="2"/>
+        <text x="130" y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#F1EAF8">Group</text>
+        <g font-family="Inter,sans-serif" font-size="10" fill="#F1EAF8" text-anchor="middle">
+          <rect x="44" y="100" width="52" height="26" rx="6" fill="#2A1740" stroke="#8C74A6" stroke-width="1.4"/><text x="70" y="117">Sub</text>
+          <rect x="104" y="100" width="52" height="26" rx="6" fill="#2A1740" stroke="#8C74A6" stroke-width="1.4"/><text x="130" y="117">Sub</text>
+          <rect x="164" y="100" width="52" height="26" rx="6" fill="#2A1740" stroke="#8C74A6" stroke-width="1.4"/><text x="190" y="117">Sub</text>
+        </g>
+        <g font-family="Inter,sans-serif" font-size="10" font-weight="600">
+          <rect x="66" y="150" width="58" height="24" rx="12" fill="none" stroke="#C69A4C" stroke-width="1.5"/><text x="95" y="166" text-anchor="middle" fill="#C69A4C">Admin</text>
+          <rect x="136" y="150" width="68" height="24" rx="12" fill="none" stroke="#8C74A6" stroke-width="1.5"/><text x="170" y="166" text-anchor="middle" fill="#C9BADA">Moderator</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <h2>The why</h2>
+    <div class="blocks c3">
+      <div class="block"><div class="bk">Market</div><h4>Messaging is where people go</h4><p>Users increasingly message businesses instead of calling - communities need structure.</p></div>
+      <div class="block"><div class="bk">Size</div><h4>~$9.6B space</h4><p>A large, growing communication-software market worth competing in.</p></div>
+      <div class="block"><div class="bk">Timing</div><h4>Maturity needs growth</h4><p>WhatsApp sat at product maturity - a moment to expand into new use-cases.</p></div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <h2>Benchmarked against best-in-class</h2>
+    <p class="lead">I scored WhatsApp against <b>Discord</b> across three areas - the analysis that pinpointed exactly where it lagged.</p>
+    <div class="blocks c3">
+      <div class="block"><h4>Group management</h4><p>Structure, roles, moderation - Discord clearly ahead.</p></div>
+      <div class="block"><h4>Communication</h4><p>Announcements, threading, pinning - gaps on WhatsApp's side.</p></div>
+      <div class="block"><h4>Tooling</h4><p>Automation and admin control - the bar to design toward.</p></div>
+    </div>
+    <p style="margin-top:14px"><a href="discord-vs-whatsapp-analysis.pdf" target="_blank" rel="noopener">See the full Discord vs WhatsApp analysis →</a></p>
+  </section>
+
+  <section class="cs-section">
+    <h2>Specified like a PRD</h2>
+    <p class="lead">Personas and goals, UX mockups, permissions, a release plan and user stories - the full spec, not a slide of ideas.</p>
+
+    <h3 style="font-family:var(--serif);font-size:18px;margin:22px 0 0">Admin vs Moderator - who can do what</h3>
+    <table class="mtable">
+      <tr><th>Action</th><th>Admin</th><th>Moderator</th><th>Member</th></tr>
+      <tr><td>Pin messages</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+      <tr><td>Temporary ban (24h)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+      <tr><td>Permanent ban</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td></tr>
+      <tr><td>Edit group &amp; sub-groups</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td></tr>
+    </table>
+
+    <h3 style="font-family:var(--serif);font-size:18px;margin:28px 0 0">Phased to release, not all at once</h3>
+    <div class="roadmap">
+      <div class="r"><div class="rn">RELEASE 01</div><div class="rt">Create</div><div class="rd">Groups &amp; sub-groups</div></div>
+      <div class="r"><div class="rn">RELEASE 02</div><div class="rt">Modify</div><div class="rd">Edit &amp; restructure</div></div>
+      <div class="r"><div class="rn">RELEASE 03</div><div class="rt">Assign</div><div class="rd">Admin &amp; moderator roles</div></div>
+      <div class="r"><div class="rn">RELEASE 04</div><div class="rt">Action</div><div class="rd">Pin, ban, moderate</div></div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <h2>Brought to life</h2>
+    <div class="blocks c3">
+      <div class="block"><div class="bk">GTM</div><h4>Sold by pain</h4><p>Target segments, their pain points, and the message that lands for each.</p></div>
+      <div class="block"><div class="bk">Metrics</div><h4>RAG success criteria</h4><p>Adoption, installs and engagement, each with target and red-amber-green thresholds.</p></div>
+      <div class="block"><div class="bk">Revenue</div><h4>An ARPU angle</h4><p>Benchmarked against WeChat and Line to frame the upside.</p></div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <h2>What it shows</h2>
+    <div class="chips" style="margin-top:14px">
+      <span class="chip">Opportunity framing</span><span class="chip">Competitive analysis</span>
+      <span class="chip">PRD &amp; UX craft</span><span class="chip">Release planning</span>
+      <span class="chip">GTM &amp; success metrics</span><span class="chip">Product foresight</span>
+    </div>
+    <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px">
+      <a class="btn primary" href="whatsapp-feature-recommendation.pdf" target="_blank" rel="noopener">Full deck (PDF)</a>
+      <a class="btn" href="discord-vs-whatsapp-analysis.pdf" target="_blank" rel="noopener">Best-in-class analysis</a>
+      <a class="btn" href="index.html#work">← All work</a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>&copy; <span id="yr">2026</span> Gaurav Joshi. All work and frameworks are my own.</span>
+    <span><a href="index.html">gauravjoshi</a></span>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
