@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solo build - Gaurav Joshi</title>
+<meta name="description" content="Products Gaurav Joshi designed, built and shipped solo - a live multimodal RAG assistant for Tata Safari owners, a scenario-based learning engine, and a Marathi word-revival project.">
+<meta name="author" content="Gaurav Joshi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+<header class="nav">
+  <div class="wrap">
+    <span class="name"><a href="index.html">Gaurav Joshi</a></span>
+    <input type="checkbox" id="nt" class="navtoggle">
+    <label for="nt" class="burger" aria-label="Menu">&#9776;</label>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="who-am-i.html">Who am I?</a>
+      <a href="thought-leadership.html">Thought leadership</a>
+      <a href="solo-build.html" class="on">Solo build</a>
+      <a href="work-with-me.html">Work with me</a>
+      <a class="hire" href="contact.html">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<div class="titleband">
+  <div class="wrap">
+    <div class="eyebrow">Solo build</div>
+    <h1>Designed, built and shipped on my own</h1>
+    <p>AI turned me into a hands-on, accelerated product builder - I take my own ideas from 0 to 1, solo. These are built, shipped and public. Not slideware: working software, with the full stack mine.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap" style="max-width:var(--wide)">
+
+    <div class="frame" style="border-left:3px solid var(--gold)">
+      <div class="ft">Alpha &middot; live &middot; multimodal RAG</div>
+      <h3>Safari AI Assistant</h3>
+      <p>A multimodal assistant for Tata Safari owners: ask a question in plain language, <b>or upload a photo of a dashboard warning light</b>, and get an answer grounded only in the official service and infotainment manuals - so it explains, it doesn't hallucinate. Built solo, end to end, and used as the first real test case for my <a href="thought-leadership.html">AI Trustworthiness Matrix</a> - so I know precisely where it is strong and where it is not.</p>
+    </div>
+    <div class="blocks c4" style="margin-top:16px">
+      <div class="block"><div class="bk">Ingest</div><h4>Manual pipeline</h4><p>A pipeline that ingests the official manuals into clean, searchable chunks.</p></div>
+      <div class="block"><div class="bk">Retrieve</div><h4>Vector search</h4><p>Semantic search over a vector store I generate from those manuals.</p></div>
+      <div class="block"><div class="bk">Reason</div><h4>Multimodal LLM</h4><p>Google Gemini reasons across text and the uploaded image together.</p></div>
+      <div class="block"><div class="bk">Ship</div><h4>Streamlit, live</h4><p>A Streamlit app, deployed live on Streamlit Cloud - retrieval, grounding, image path and deployment all mine.</p></div>
+    </div>
+    <div class="lk" style="margin-top:14px">
+      <a href="https://safari-ai-assistant-gsj24983.streamlit.app" target="_blank" rel="noopener">Try it live &rarr;</a>
+      <a href="https://github.com/GSJ24983/safari-ai-assistant" target="_blank" rel="noopener">Code on GitHub</a>
+    </div>
+
+    <div class="frames" style="margin-top:34px">
+      <div class="frame">
+        <div class="ft">Learning engine</div>
+        <h3>Puppeteer (SBL)</h3>
+        <p>A branching-scenario engine that teaches judgment by making people <b>decide, then grading what they write</b> - reasoning, not multiple choice. It's my case-solving coaching method - the weekly forum I've run across three organisations - turned into a working tool. It's also the learning application of the <a href="case-puppeteer.html">Puppeteer / Contentdt concept</a>: the same 'you pull the strings' mechanic, pointed at building decision-making.</p>
+        <div class="lk"><a href="https://github.com/GSJ24983/puppeteer-sbl" target="_blank" rel="noopener">Code on GitHub</a></div>
+      </div>
+      <div class="frame">
+        <div class="ft">Language &amp; writing</div>
+        <h3>Marathi words</h3>
+        <p>The small build behind my daily project reviving forgotten Marathi words - <b>one archaic word a day, my own reading of it</b>, as shareable cards. Where the writing habit meets the framework habit: a quiet, consistent product with a real audience.</p>
+        <div class="lk"><a href="https://github.com/GSJ24983/marathi-words" target="_blank" rel="noopener">Code on GitHub</a></div>
+      </div>
+    </div>
+
+    <div class="runskills" style="margin-top:30px">
+      <div class="rk">Off the clock</div>
+      <p>I write - poems and short stories, and the Marathi project above. Also football, family, and a slow campaign against the flute. <b>The same instinct that invents frameworks at work, pointed somewhere quieter.</b></p>
+    </div>
+
+    <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px">
+      <a class="btn" href="https://github.com/GSJ24983" target="_blank" rel="noopener">All projects on GitHub</a>
+      <a class="btn primary" href="work-with-me.html">Work with me</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>&copy; <span id="yr">2026</span> Gaurav Joshi. All work and frameworks are my own.</span>
+    <span>Pune, India</span>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
