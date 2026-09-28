@@ -51,3 +51,21 @@
   });
   window.addEventListener('hashchange',openHash);
 })();
+
+/* Pop-up dialogs: [data-dialog="id"] opens, [data-close] or a click on the backdrop closes */
+(function(){
+  document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('[data-dialog]').forEach(function(b){
+      var d=document.getElementById(b.dataset.dialog);if(!d||!d.showModal) return;
+      b.addEventListener('click',function(){d.showModal();document.body.classList.add('dlg-open');});
+    });
+    document.querySelectorAll('dialog').forEach(function(d){
+      d.addEventListener('close',function(){document.body.classList.remove('dlg-open');});
+      d.addEventListener('click',function(e){
+        if(e.target.closest('[data-close]')){d.close();return;}
+        if(e.target===d){var r=d.getBoundingClientRect();
+          if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom) d.close();}
+      });
+    });
+  });
+})();
