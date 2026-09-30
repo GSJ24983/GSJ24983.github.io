@@ -3,8 +3,10 @@
      <script src="ask.js" data-endpoint="https://ask-gaurav.<your-subdomain>.workers.dev" defer></script>
    Uses the site's CSS tokens (site.css), with fallbacks so it also works standalone.
    Access codes: share a link like https://gsj24983.github.io/?c=ANIL7 - the code is remembered on that browser.
-   Kill switch: on every page load the widget asks the Worker's /status; if the assistant is off or has
-   reached its daily budget, the button is simply not shown. */
+   Kill switch: on every page load the widget asks the Worker's /status; if the assistant is switched off,
+   the button is simply not shown. When the day's budget is spent, OWL stays up in 'free' mode: the suggested
+   questions and Gaurav's approved answers still work, typed questions are paused.
+   /status also hands the browser a signed visitor token (kept in localStorage); paid questions need it. */
 (function () {
   var script = document.currentScript;
   var ENDPOINT = (script && script.dataset.endpoint || "").replace(/\/$/, "");
@@ -41,6 +43,10 @@
   function lset(k, v) { try { localStorage.setItem("ask-" + k, v); } catch (e) {} }
   var vid = lget("vid");
   if (!vid) { vid = "v-" + Math.random().toString(36).slice(2) + Date.now().toString(36); lset("vid", vid); }
+  // Signed visitor token from the Worker's /status (it counts daily limits per token, not per vid)
+  var token = lget("token") || "";
+  function statusUrl() { return ENDPOINT + "/status" + (token ? "?t=" + encodeURIComponent(token) : ""); }
+  function takeToken(st) { if (st && st.token) { token = st.token; lset("token", token); } }
   var urlCode = new URLSearchParams(location.search).get("c");
   if (urlCode && /^[A-Za-z0-9-]{3,24}$/.test(urlCode)) lset("code", urlCode);
   var code = lget("code") || "";
@@ -150,6 +156,8 @@
   var form = el("form", {}, [ta, send]);
   var trust = el("span", { class: "ag-trust" }); trust.innerHTML = TICK + "Every fact checked";
   var note = el("p", { class: "ag-note" });
+  // Shown when today's budget is spent: typed questions pause, the suggested questions keep working
+  var modeNote = el("p", { class: "ag-note", hidden: "", text: "Typed questions are paused for today - the suggested questions still work." });
   note.appendChild(document.createTextNode("Answers are written by Google Gemini and checked by Anthropic Claude. Questions are logged to improve OWL and deleted after 12 months - no names, unless you share your email or use a personal invite link. Feedback on me? "));
   note.appendChild(el("a", { href: CONTACT_URL, text: "Tell Gaurav" }));
   var panel = el("div", { class: "ag-panel", role: "dialog", "aria-modal": "false", "aria-label": NAME + " - Gaurav's AI assistant", hidden: "" }, [
@@ -161,7 +169,7 @@
       el("button", { class: "ag-x", type: "button", "aria-label": "Close", text: "×", onclick: close }),
     ]),
     who, log,
-    el("div", { class: "ag-in" }, [form,
+    el("div", { class: "ag-in" }, [modeNote, form,
       note]),
   ]);
   btn.hidden = true;   // shown only after /status says the assistant is online
@@ -283,7 +291,7 @@
       el("button", { class: "ag-primary", type: "submit", text: "Unlock more questions" })])]);
     f.addEventListener("submit", function (e) {
       e.preventDefault();
-      post("/unlock", { vid: vid, session: session, persona: persona, page: location.pathname, name: name.value, email: email.value })
+      post("/unlock", { vid: vid, token: token, session: session, persona: persona, page: location.pathname, name: name.value, email: email.value })
         .then(function (r) {
           if (r.ok) { leadDone = true; set("lead", true); f.replaceWith(el("div", { class: "ag-lead", text: "Done - " + r.added + " more questions for today. Go ahead." })); ta.focus(); }
           else msg.textContent = r.error || "Couldn't unlock - please try again.";
@@ -322,8 +330,19 @@
     busy = true; send.disabled = true; ta.value = ""; grow();
     bubbleQ(q);
     var typing = thinking(); scroll();
-    post("/ask", { question: q, persona: persona, page: location.pathname, session: session, vid: vid, code: code,
-      history: history.map(function (h) { return { q: h.q, a: h.a }; }) })
+    // history: ignored by the Worker from 1 Oct 2026 (it keeps the conversation itself, so it can't be forged).
+    // Still sent so an older Worker keeps working during a switch-over; safe to remove later.
+    function send(retried) {
+      return post("/ask", { question: q, persona: persona, page: location.pathname, session: session, vid: vid, token: token, code: code,
+        history: history.map(function (h) { return { q: h.q, a: h.a }; }) })
+        .then(function (r) {
+          // Missing or expired token: fetch a fresh one once and ask again, so the visitor never sees 'reload'
+          if (r.status !== "reload" || retried) return r;
+          token = ""; lset("token", "");
+          return fetch(statusUrl()).then(function (x) { return x.json(); }).then(function (st) { takeToken(st); return token ? send(true) : r; }, function () { return r; });
+        });
+    }
+    send(false)
       .then(function (r) {
         typing.remove();
         var a = r.answer || "Something went wrong. You can reach Gaurav - " + CONTACT + ".";
@@ -331,7 +350,8 @@
         history.push({ q: q, a: a, links: r.links || [], status: r.status, id: counted ? r.id : null, approved: !!r.approved }); set("history", history);
         bubbleA(a, r.links, r.status, counted ? r.id : null, q, false, !!r.approved);
         if (r.status === "limit_unlock") log.appendChild(unlockForm());
-        else if (r.status === "offline" || r.status === "paused") { form.hidden = true; }
+        else if (r.status === "offline") { form.hidden = true; }
+        else if (r.status === "paused") { modeNote.hidden = false; }
         else if (typeof r.left === "number" && r.left <= 3) log.appendChild(el("div", { class: "ag-left",
           text: r.left === 0 ? "That was your last question for today." : r.left + " question" + (r.left === 1 ? "" : "s") + " left today." }));
         if (r.status !== "limit_unlock") maybeLead();
@@ -374,6 +394,7 @@
   function applyStatus(st) {
     if (st.starters) STARTERS = st.starters;
     online = !!st.online;
+    modeNote.hidden = st.mode !== "free";
     document.documentElement.classList.toggle("ag-on", online);
     if (inlineHost) {
       inlineHost.hidden = !online;
@@ -385,9 +406,9 @@
     if (panel.hidden) btn.hidden = false;
     if (get("open", false) && window.innerWidth > 560 && panel.hidden) open();
   }
-  var cached = get("status", null);   // re-checked at most once a minute per tab
-  if (cached && Date.now() - cached.t < 60000) applyStatus(cached);
-  else fetch(ENDPOINT + "/status").then(function (r) { return r.json(); })
-    .then(function (st) { st.t = Date.now(); set("status", st); applyStatus(st); })
+  var cached = get("status", null);   // re-checked at most once a minute per tab (always, until the browser has a token)
+  if (cached && token && Date.now() - cached.t < 60000) applyStatus(cached);
+  else fetch(statusUrl()).then(function (r) { return r.json(); })
+    .then(function (st) { takeToken(st); delete st.token; st.t = Date.now(); set("status", st); applyStatus(st); })
     .catch(function () { /* Worker unreachable - keep the button hidden */ });
 })();
