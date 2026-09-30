@@ -150,7 +150,7 @@
   var form = el("form", {}, [ta, send]);
   var trust = el("span", { class: "ag-trust" }); trust.innerHTML = TICK + "Every fact checked";
   var note = el("p", { class: "ag-note" });
-  note.appendChild(document.createTextNode("Questions are logged to improve OWL and deleted after 12 months - no names, unless you share your email or use a personal invite link. Feedback on me? "));
+  note.appendChild(document.createTextNode("Answers are written by Google Gemini and checked by Anthropic Claude. Questions are logged to improve OWL and deleted after 12 months - no names, unless you share your email or use a personal invite link. Feedback on me? "));
   note.appendChild(el("a", { href: CONTACT_URL, text: "Tell Gaurav" }));
   var panel = el("div", { class: "ag-panel", role: "dialog", "aria-modal": "false", "aria-label": NAME + " - Gaurav's AI assistant", hidden: "" }, [
     el("div", { class: "ag-head" }, [
@@ -305,7 +305,7 @@
     var box = el("div", { class: "ag-think", role: "status" });
     var rows = steps.map(function (t) { var r = el("div", { class: "ag-step" }, [el("i"), el("span", { text: t })]); box.appendChild(r); return r; });
     var secs = el("b", { text: "0s" });
-    box.appendChild(el("div", { class: "ag-wait" }, [document.createTextNode("New questions take 10-20 seconds. Every fact is checked before you see it. "), secs]));
+    box.appendChild(el("div", { class: "ag-wait" }, [document.createTextNode("New questions take 10-20 seconds. Every fact is checked against his portfolio, by code and a second AI, before you see it. "), secs]));
     var row = botRow(box), t0 = Date.now();
     function paint() {
       var s = Math.floor((Date.now() - t0) / 1000), stage = s < 2 ? 0 : s < 6 ? 1 : 2;
