@@ -150,7 +150,7 @@
   var form = el("form", {}, [ta, send]);
   var trust = el("span", { class: "ag-trust" }); trust.innerHTML = TICK + "Every fact checked";
   var note = el("p", { class: "ag-note" });
-  note.appendChild(document.createTextNode("Questions are logged anonymously to improve answers. Feedback on me? "));
+  note.appendChild(document.createTextNode("Questions are logged to improve OWL and deleted after 12 months - no names, unless you share your email or use a personal invite link. Feedback on me? "));
   note.appendChild(el("a", { href: CONTACT_URL, text: "Tell Gaurav" }));
   var panel = el("div", { class: "ag-panel", role: "dialog", "aria-modal": "false", "aria-label": NAME + " - Gaurav's AI assistant", hidden: "" }, [
     el("div", { class: "ag-head" }, [

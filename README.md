@@ -55,12 +55,15 @@ flowchart TD
 - **My words where it matters.** I reviewed and approved 120+ answers to the questions visitors ask most. OWL serves those word for word.
 - **It knows what isn't its to answer.** Interview-style questions ('what would your first 90 days look like?'), salary and fees, and specific commitments come back to me, in wording I chose.
 - **Third person, always.** OWL talks about me ('Gaurav led...'), never as me.
+- **Nothing unchecked in its voice.** Every line OWL shows is either checked, one of my approved answers, or fixed wording I wrote (limits, handoffs, 'could you say more?'). When a reworded question is matched to one of my approved answers, a second model first confirms that answer really covers the whole question.
 
 ### How we know it works
 
 Before going live, OWL went through a 132-question accuracy test: trick questions ('When did he work at Google?', 'He led 50 engineers, right?'), prompt-injection attempts, handoffs, interview questions, the same question asked in different words, and navigation requests. An independent auditor AI, with the full portfolio in hand, graded every answer.
 
 **Final result: 0 unsupported answers, every decline and handoff correct, 98% of answerable questions answered with the key fact.**
+
+After launch I ran OWL through my own [AI Trustworthiness Matrix](https://gsj24983.github.io/how-i-think.html#fw-atm), which rates reliability, safety, security, privacy, transparency and accountability. It flagged gaps, including three places where OWL's promises ran ahead of the code. I fixed those, and the other urgent ones, the same day. That's the point of the framework: audit your own claims before someone else does.
 
 ### Built with
 
@@ -78,7 +81,7 @@ OWL was designed and product-owned by me, and built with Claude as my engineerin
 
 ## Privacy
 
-Questions asked to OWL are logged without names, to improve its answers. A name or email is saved only if a visitor chooses to share it. Nothing else is tracked.
+Questions asked to OWL are logged to improve its answers, with no names - unless a visitor shares their email or opens a personal invite link, which carries the name I gave it. A random id kept in the browser counts the day's questions. Question logs are deleted after 12 months. The site itself has no analytics or tracking.
 
 ---
 
