@@ -389,3 +389,20 @@ body.dlg-open{overflow:hidden}
 
 /* Long door descriptions no longer run off narrow phone screens */
 .door .dbody{max-width:100%;min-width:0}
+
+/* ---------- 30 Sep: landing title block, OWL spacing, footer ---------- */
+#landing .hero-brand{display:flex;flex-direction:column;align-items:center;gap:6px;margin:0 auto;width:100%}
+#landing .brand-top{display:flex;align-items:center;justify-content:center;gap:12px}
+#landing .hero-brand .name{font-size:clamp(28px,4.2vw,36px)}
+#landing .hero-brand .role{font-size:clamp(15px,1.9vw,17.5px);font-weight:700;color:var(--ink);margin-top:2px}
+#landing .reach{font-size:14.5px;font-weight:600;color:var(--ink-soft);display:flex;flex-wrap:wrap;justify-content:center;gap:2px 0}
+#landing .reach a{color:var(--spruce)}
+#landing .motto{font-size:clamp(14px,1.7vw,16px);font-weight:700;color:var(--plum);letter-spacing:.01em}
+#landing .sep{color:var(--rule);font-weight:400;margin:0 8px}
+#ask-gaurav-inline{padding:18px 0 0!important;border-top:none!important}
+#landing h1{margin-top:28px}
+.site-foot{max-width:var(--maxw);margin:0 auto;padding:22px 22px calc(28px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);font-size:12px;color:var(--ink-soft);text-align:center}
+#landing + .site-foot{border-top:none;padding-top:0}
+@media(max-width:560px){#landing .reach{flex-direction:column;align-items:center}#landing .reach .sep{display:none}}
+#landing .hero-brand .m{white-space:nowrap}
+@media(max-width:560px){#landing .sep{margin:0 6px}#landing .motto{font-size:13.5px}}

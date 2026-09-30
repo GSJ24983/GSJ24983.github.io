@@ -59,7 +59,7 @@
 .ag-title{min-width:0}\
 .ag-title h2{display:flex;align-items:center;gap:8px;font:600 21px/1.1 var(--disp,Georgia,serif);letter-spacing:.06em;margin:0;color:#fff}\
 .ag-live{width:8px;height:8px;border-radius:50%;background:#5FC39A;box-shadow:0 0 0 3px rgba(95,195,154,.2)}\
-.ag-title p{margin:4px 0 0;font-size:12.5px;color:#CDBEDD;line-height:1.35}\
+.ag-title p{margin:5px 0 0;font-size:14.5px;font-weight:500;color:#F3EDF9;line-height:1.35}.ag-panel:not(.ag-inline) .ag-title p{font-size:13px}\
 .ag-trust{margin-left:auto;flex:none;display:flex;align-items:center;gap:6px;font:600 11.5px var(--sans,system-ui,sans-serif);color:#F3ECDF;border:1px solid rgba(243,236,223,.28);border-radius:999px;padding:5px 11px;white-space:nowrap}\
 .ag-trust svg{width:13px;height:13px}\
 .ag-x{margin-left:6px;background:rgba(255,255,255,.08);border:0;color:#F3ECDF;font-size:20px;line-height:1;cursor:pointer;width:32px;height:32px;border-radius:50%}\
