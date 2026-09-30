@@ -35,6 +35,7 @@
   function openHash(){
     if(!location.hash) return;
     var el=document.getElementById(location.hash.slice(1));if(!el) return;
+    if(el.tagName==='DIALOG'){if(el.showModal&&!el.open){el.showModal();document.body.classList.add('dlg-open');}return;}
     if(el.tagName==='DETAILS') el.open=true;
     var d=el.closest('details');while(d){d.open=true;d=d.parentElement&&d.parentElement.closest('details');}
     setTimeout(function(){el.scrollIntoView({block:'start'})},30);
