@@ -119,6 +119,8 @@
 .ag-form .ag-primary{background:var(--plum,#2A1740);color:#fff;border:0;border-radius:10px;padding:9px 14px;font:600 14px var(--sans,system-ui,sans-serif);cursor:pointer}\
 .ag-send:disabled{opacity:.35;cursor:default}\
 .ag-ghost{background:none;border:1px solid var(--rule,#D2CCC0);border-radius:10px;padding:7px 12px;font:500 13px var(--sans,system-ui,sans-serif);cursor:pointer;color:var(--ink-soft,#6A6076)}\
+.ag-count{font-size:11.5px;color:var(--ink-soft,#6A6076);text-align:right;margin:4px 6px 0}.ag-count.over{color:#A2332B;font-weight:600}\
+.ag-long{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.ag-long button,.ag-long a{font:600 13px var(--sans,system-ui,sans-serif);border-radius:999px;padding:7px 12px;cursor:pointer;text-decoration:none;border:1px solid var(--line,#E1DCD0);background:#fff;color:var(--ink,#211A2B)}.ag-long a{background:var(--plum,#2A1740);color:#fff;border-color:var(--plum,#2A1740)}\
 .ag-note{font-size:11.5px;color:var(--ink-soft,#6A6076);margin:8px 4px 0;line-height:1.4}.ag-note a{color:var(--spruce,#2E6F63);font-weight:600}\
 #ask-gaurav-inline[hidden]{display:none!important}#ask-gaurav-inline{display:grid;gap:10px}\
 .ag-panel.ag-inline{position:static;width:100%;max-width:none;height:auto;max-height:600px;box-shadow:0 30px 60px -30px rgba(24,11,41,.35),0 2px 6px rgba(24,11,41,.05);text-align:left}\
@@ -150,7 +152,11 @@
     [av(), el("span", { text: "Ask about Gaurav" })]);
   var log = el("div", { class: "ag-log", "aria-live": "polite" });
   var who = el("div", { class: "ag-who", role: "group", "aria-label": "I'm here because I'm..." });
-  var ta = el("textarea", { rows: "1", maxlength: "500", placeholder: "Ask anything about Gaurav", "aria-label": "Your question" });
+  // Questions are limited to MAXQ characters (the Worker has the same cap). The box accepts a longer paste on purpose,
+  // so the visitor sees why it won't go through instead of having it silently cut off.
+  var MAXQ = 500;
+  var ta = el("textarea", { rows: "1", maxlength: "20000", placeholder: "Ask anything about Gaurav", "aria-label": "Your question" });
+  var count = el("div", { class: "ag-count", "aria-live": "polite", hidden: "" });
   var send = el("button", { class: "ag-send", type: "submit", "aria-label": "Ask" });
   send.innerHTML = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4M4.5 9.5L10 4l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var form = el("form", {}, [ta, send]);
@@ -169,7 +175,7 @@
       el("button", { class: "ag-x", type: "button", "aria-label": "Close", text: "×", onclick: close }),
     ]),
     who, log,
-    el("div", { class: "ag-in" }, [modeNote, form,
+    el("div", { class: "ag-in" }, [modeNote, form, count,
       note]),
   ]);
   btn.hidden = true;   // shown only after /status says the assistant is online
@@ -326,8 +332,9 @@
   function ask(q) {
     q = (q || "").trim();
     if (!q || busy) return;
+    if (q.length > MAXQ) return tooLong(q);
     if (!history.length) log.innerHTML = "";
-    busy = true; send.disabled = true; ta.value = ""; grow();
+    busy = true; send.disabled = true; ta.value = ""; grow(); updateCount();
     bubbleQ(q);
     var typing = thinking(); scroll();
     // history: ignored by the Worker from 1 Oct 2026 (it keeps the conversation itself, so it can't be forged).
@@ -363,9 +370,31 @@
       .then(function () { busy = false; send.disabled = false; scroll(); ta.focus(); });
   }
 
+  // Over the limit (often a pasted job description): fixed text, no model call, nothing counted or sent.
+  // The text stays in the box so the visitor can trim it or pick one line.
+  function tooLong(q) {
+    if (!history.length && log.querySelector(".ag-starters")) log.innerHTML = "";
+    var b = el("div", { class: "ag-m ag-a ag-soft" });
+    b.appendChild(el("p", { text: "That's longer than I can take - questions are limited to " + MAXQ + " characters." }));
+    b.appendChild(el("p", { text: "If it's a job description: matching a role to Gaurav's profile is a judgement he'd rather make with you personally. But I can help with the parts - ask about the skills that matter most, one at a time." }));
+    var mail = "mailto:kavee.gauravjoshi@gmail.com?subject=" + encodeURIComponent("A role for you (from OWL)") + "&body=" + encodeURIComponent(q.slice(0, 1800));
+    b.appendChild(el("div", { class: "ag-long" }, [
+      el("button", { type: "button", text: "Has he led a loyalty platform?", onclick: function () { ta.value = ""; grow(); updateCount(); ask("Has he led a loyalty platform?"); } }),
+      el("a", { href: mail, text: "Email it to Gaurav" }),
+    ]));
+    botRow(b); scroll(); ta.focus();
+  }
+  function updateCount() {
+    var n = ta.value.trim().length;
+    count.hidden = n < MAXQ - 100;
+    count.className = "ag-count" + (n > MAXQ ? " over" : "");
+    count.textContent = n > MAXQ ? n + " / " + MAXQ + " characters - too long to send" : n + " / " + MAXQ;
+  }
+
   // ---------- events ----------
   function grow() { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 110) + "px"; }
   ta.addEventListener("input", grow);
+  ta.addEventListener("input", updateCount);
   ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask(ta.value); } });
   form.addEventListener("submit", function (e) { e.preventDefault(); ask(ta.value); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) close(); });
