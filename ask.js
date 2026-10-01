@@ -70,6 +70,13 @@
 .ag-trust svg{width:13px;height:13px}\
 .ag-x{margin-left:6px;background:rgba(255,255,255,.08);border:0;color:#F3ECDF;font-size:20px;line-height:1;cursor:pointer;width:32px;height:32px;border-radius:50%}\
 .ag-x:hover{background:rgba(255,255,255,.16)}\
+.ag-tools{margin-left:auto;flex:none;display:flex;gap:6px;align-items:center}.ag-tools .ag-x{margin-left:0}.ag-inline .ag-tools{margin-left:8px}\
+.ag-max{background:rgba(255,255,255,.08);border:0;color:#F3ECDF;cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0}\
+.ag-max:hover{background:rgba(255,255,255,.16)}.ag-max svg{width:16px;height:16px}\
+.ag-dim{position:fixed;inset:0;z-index:998;background:rgba(24,11,41,.55)}.ag-dim[hidden]{display:none}\
+.ag-panel.ag-big,.ag-panel.ag-inline.ag-big{position:fixed;z-index:999;left:50%;top:50%;right:auto;bottom:auto;transform:translate(-50%,-50%);width:min(1000px,92vw);max-width:none;height:min(900px,90vh);max-height:none;border-radius:20px;font-size:16px}\
+.ag-big .ag-log{padding:26px 34px 20px}.ag-big .ag-row{max-width:min(820px,94%)}.ag-big .ag-in{padding:14px 34px}\
+.ag-big .ag-intro,.ag-big .ag-starters,.ag-big .ag-lead,.ag-big .ag-form{max-width:820px}\
 .ag-who{display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line,#E1DCD0);background:var(--paper,#F1EEE6)}\
 .ag-who button{border:1px solid var(--rule,#D2CCC0);background:transparent;color:var(--ink-soft,#6A6076);border-radius:999px;padding:4px 11px;font:500 12.5px var(--sans,system-ui,sans-serif);cursor:pointer}\
 .ag-who button[aria-pressed=true]{background:var(--spruce,#2E6F63);border-color:var(--spruce,#2E6F63);color:#fff}\
@@ -131,7 +138,8 @@
 @media(max-width:560px){.ag-trust{display:none}.ag-log{padding:16px 14px}.ag-row{max-width:100%}.ag-intro,.ag-starters,.ag-lead,.ag-form{margin-left:0}.ag-fb,.ag-left{margin-left:40px}.ag-starters button{font-size:13px}}\
 @media(max-width:560px){.ag-panel.ag-inline{height:auto;max-height:640px;width:100%;border:1px solid var(--line,#E1DCD0);border-radius:18px}}\
 @media(max-width:560px){.ag-panel:not(.ag-inline){right:0;bottom:0;width:100vw;max-width:100vw;height:100dvh;border-radius:0;border:0}.ag-btn{right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px))}}\
-@media print{.ag-btn,.ag-panel{display:none!important}}";
+@media(max-width:560px){.ag-panel:not(.ag-inline) .ag-max{display:none}.ag-inline .ag-tools{margin-left:auto}.ag-panel.ag-big,.ag-panel.ag-inline.ag-big{left:0;top:0;transform:none;width:100vw;height:100dvh;border-radius:0;border:0}.ag-big .ag-log{padding:16px 14px}.ag-big .ag-in{padding:12px 14px}}\
+@media print{.ag-btn,.ag-panel,.ag-dim{display:none!important}}";
   var TICK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l5 2v4c0 3.2-2.1 5.6-5 6.9-2.9-1.3-5-3.7-5-6.9v-4z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.6 8.1l1.7 1.7 3.2-3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
   function av() { var a = document.createElement("span"); a.className = "ag-av"; a.innerHTML = OWL; return a; }
   var style = document.createElement("style"); style.textContent = css; document.head.appendChild(style);
@@ -166,13 +174,21 @@
   var modeNote = el("p", { class: "ag-note", hidden: "", text: "Typed questions are paused for today - the suggested questions still work." });
   note.appendChild(document.createTextNode("Answers are written by Google Gemini and checked by Anthropic Claude. Questions are logged to improve OWL and deleted after 12 months - no names, unless you share your email or use a personal invite link. Feedback on me? "));
   note.appendChild(el("a", { href: CONTACT_URL, text: "Tell Gaurav" }));
+  // Maximise: a large centred window for longer answers (full screen on phones). Purely layout.
+  var ICON_BIG = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12 3h5v5M8 17H3v-5M17 3l-6 6M3 17l6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var ICON_SMALL = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 9h-5V4M4 11h5v5M11 9l6-6M9 11l-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var maxBtn = el("button", { class: "ag-max", type: "button", "aria-label": "Expand", title: "Expand", "aria-pressed": "false", onclick: function () { setBig(!big); } });
+  maxBtn.innerHTML = ICON_BIG;
+  var dim = el("div", { class: "ag-dim", hidden: "", onclick: function () { setBig(false); } });
+  var big = false;
   var panel = el("div", { class: "ag-panel", role: "dialog", "aria-modal": "false", "aria-label": NAME + " - Gaurav's AI assistant", hidden: "" }, [
     el("div", { class: "ag-head" }, [
       av(),
       el("div", { class: "ag-title" }, [el("h2", {}, [document.createTextNode(NAME), el("span", { class: "ag-live", title: "Online", "aria-hidden": "true" })]),
         el("p", { text: "Gaurav's AI assistant. Answers only from his portfolio." })]),
       trust,
-      el("button", { class: "ag-x", type: "button", "aria-label": "Close", text: "×", onclick: close }),
+      el("div", { class: "ag-tools" }, [maxBtn,
+        el("button", { class: "ag-x", type: "button", "aria-label": "Close", text: "×", onclick: close })]),
     ]),
     who, log,
     el("div", { class: "ag-in" }, [modeNote, form, count,
@@ -185,6 +201,7 @@
   if (inlineHost) { panel.classList.add("ag-inline"); inlineHost.appendChild(panel); }
   else document.body.appendChild(panel);
   document.body.appendChild(btn);
+  document.body.appendChild(dim);
 
   PERSONAS.forEach(function (p) {
     who.appendChild(el("button", { type: "button", "data-k": p.k, "aria-pressed": String(p.k === persona), text: p.label,
@@ -397,7 +414,7 @@
   ta.addEventListener("input", updateCount);
   ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask(ta.value); } });
   form.addEventListener("submit", function (e) { e.preventDefault(); ask(ta.value); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) close(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) { if (big) setBig(false); else close(); } });
 
   function open() {
     var p = sitePersona();
@@ -406,7 +423,18 @@
     renderAll(); scroll(); ta.focus();
   }
   var online = false;
-  function close() { if (inlineHost) return; panel.hidden = true; btn.hidden = !online; set("open", false); if (online) btn.focus(); }
+  function close() { if (big) setBig(false); if (inlineHost) return; panel.hidden = true; btn.hidden = !online; set("open", false); if (online) btn.focus(); }
+  function setBig(on) {
+    big = !!on;
+    panel.classList.toggle("ag-big", big);
+    dim.hidden = !big;
+    document.documentElement.style.overflow = big ? "hidden" : "";
+    maxBtn.innerHTML = big ? ICON_SMALL : ICON_BIG;
+    maxBtn.setAttribute("aria-label", big ? "Shrink" : "Expand"); maxBtn.title = big ? "Shrink" : "Expand";
+    maxBtn.setAttribute("aria-pressed", big ? "true" : "false");
+    panel.setAttribute("aria-modal", big ? "true" : "false");
+    scroll(); ta.focus();
+  }
 
   // 'Ask about this' buttons anywhere on the site: <button data-ask="Walk me through the dairy case">
   // They only appear while the assistant is online.
