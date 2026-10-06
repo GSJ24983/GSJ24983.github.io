@@ -145,3 +145,12 @@
 @media (prefers-reduced-motion:reduce){.swtr *{transition:none!important}}
 .swtr .wrap>.conv,.swtr .wrap>.sw-pillars,.swtr .wrap>.dtabs,.swtr .wrap>.dpanel,.swtr .wrap>.sw-facts,.swtr .wrap>.cta-row{margin-top:18px}
 .swtr .dpanel+.cta-row{margin-top:22px}
+
+/* Strings - Step 0 flow */
+.swtr .sflow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 10px;align-items:stretch}
+@media (max-width:820px){.swtr .sflow{grid-template-columns:minmax(0,1fr)}}
+.swtr .sfc{border-radius:12px;padding:16px;background:var(--lilac);display:grid;gap:6px;align-content:start;min-width:0;font-family:var(--sans)}
+.swtr .sfc.s{background:var(--mint)}
+.swtr .sfc .sfl{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--plum);text-transform:uppercase}
+.swtr .sfc h4{font-family:var(--disp);font-weight:600;font-size:18px;margin:0;line-height:1.2}
+.swtr .sfc p{font-size:14px;color:#3d3348;margin:0;line-height:1.55}
