@@ -61,7 +61,7 @@ flowchart TD
 
 Before going live, OWL went through a 132-question accuracy test: trick questions ('When did he work at Google?', 'He led 50 engineers, right?'), prompt-injection attempts, handoffs, interview questions, the same question asked in different words, and navigation requests. An independent auditor AI, with the full portfolio in hand, graded every answer.
 
-**Final result: 0 unsupported answers, every decline and handoff correct, 98% of answerable questions answered with the key fact.**
+**Final pre-launch result: no unsupported answers, every decline and handoff correct, 98% of answerable questions answered with the key fact.** A later full run on 30 Sep found 1 unsupported answer out of 67 - part of a statement presented as the whole. It was fixed the same day with a new approved answer and a checker rule for that pattern.
 
 After launch I ran OWL through my own [AI Trustworthiness Matrix](https://gsj24983.github.io/how-i-think.html#fw-atm), which rates reliability, safety, security, privacy, transparency and accountability. It flagged gaps, including three places where OWL's promises ran ahead of the code. I fixed those, and the other urgent ones, the same day. That's the point of the framework: audit your own claims before someone else does.
 
