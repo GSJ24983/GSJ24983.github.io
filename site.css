@@ -461,3 +461,19 @@ body.dlg-open{overflow:hidden}
 .tab:hover{color:#fff;background:rgba(255,255,255,.05)}
 .tab.on{color:#fff;background:rgba(198,154,76,.2)}
 @media(max-width:420px){.tab{font-size:12.5px;padding:12px 4px}}
+
+/* ---------- C9: training tab - storyline: difference, what, how, see it, engagement, science ---------- */
+@media(max-width:760px){details.fold{margin-top:16px;border:1px solid var(--line);border-radius:12px;background:var(--paper-2);padding:0 18px}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:6px 16px;flex-wrap:wrap;padding:14px 0}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold .fold-t{font-family:var(--disp);font-weight:600;font-size:18px;color:var(--ink)}
+details.fold .fold-hint{font-size:13.5px;font-weight:600;color:var(--spruce)}
+details.fold .fold-hint::after{content:' \25BE'}
+details.fold[open] .fold-hint{font-size:0}
+details.fold[open] .fold-hint::after{content:'Hide \25B4';font-size:13.5px}
+details.fold[open]{padding-bottom:16px}
+.sci-h{font-family:var(--disp);font-size:20px;margin:4px 0 12px}
+#tr-model .conv{margin-top:6px}
+.open.lite .hook.tr-hook{white-space:normal;max-width:none;text-wrap:balance}
+.open .tr-lede{font-size:17px;color:var(--ink-soft);margin:0;max-width:60ch}
+@media(max-width:560px){.open .tr-lede{font-size:16px}}
