@@ -261,8 +261,11 @@
   function renderIntro() {
     log.innerHTML = "";
     var hello = el("div", { class: "ag-m ag-a ag-hello" });
+    if (INLINE) hello.appendChild(el("p", { text: "Hi, I'm " + NAME + ". Ask about Gaurav's work, roles or availability - I answer only from his portfolio." }));
+    else {
     hello.appendChild(el("p", { text: "Hi, I'm " + NAME + ", Gaurav's AI assistant." }));
     hello.appendChild(el("p", { text: "Ask about his work, roles or availability. I answer only from his portfolio, and say so when something isn't there." }));
+    }
     botRow(hello);
     log.appendChild(el("div", { class: "ag-intro", text: "Try asking" }));
     var s = el("div", { class: "ag-starters" });
