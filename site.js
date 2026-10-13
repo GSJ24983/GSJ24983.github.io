@@ -58,7 +58,10 @@
   document.addEventListener('DOMContentLoaded',function(){
     document.querySelectorAll('[data-dialog]').forEach(function(b){
       var d=document.getElementById(b.dataset.dialog);if(!d||!d.showModal) return;
-      b.addEventListener('click',function(){d.showModal();document.body.classList.add('dlg-open');});
+      b.addEventListener('click',function(){
+        var p=b.closest('dialog');if(p&&p!==d&&p.open) p.close();
+        d.querySelectorAll('iframe[data-src]').forEach(function(f){if(!f.getAttribute('src')) f.setAttribute('src',f.dataset.src);});
+        d.showModal();document.body.classList.add('dlg-open');});
     });
     document.querySelectorAll('dialog').forEach(function(d){
       d.addEventListener('close',function(){document.body.classList.remove('dlg-open');});
