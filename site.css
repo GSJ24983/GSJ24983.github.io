@@ -636,3 +636,6 @@ details.rgroup .rec{background:var(--paper)}
 .jstops .stop::before{content:"";position:absolute;left:-30px;top:31px;width:15px;height:15px;border-radius:50%;background:var(--paper-2);box-shadow:inset 0 0 0 3px var(--rule);transition:box-shadow .25s var(--ease-out),background-color .25s var(--ease-out)}
 .jstops .stop.on::before,.jstops .stop.seen::before{background:var(--spruce);box-shadow:inset 0 0 0 3px var(--spruce)}
 .jstops .stop.on .yr{color:var(--spruce)}
+/* AI section: four cards in a 2x2 grid (OWL added, Oct 2026) */
+.ai-grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:760px){.ai-grid4{grid-template-columns:minmax(0,1fr)}}
