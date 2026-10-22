@@ -639,3 +639,18 @@ details.rgroup .rec{background:var(--paper)}
 /* AI section: four cards in a 2x2 grid (OWL added, Oct 2026) */
 .ai-grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:760px){.ai-grid4{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- Top bands (22 Oct): removed on Who I am, How I think, In their words; slim on Get in touch ---------- */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.lead-line{font-size:clamp(18px,2vw,21px);font-weight:600;letter-spacing:-.015em;color:var(--ink);margin:2px 0 6px;max-width:none}
+main > h1.sr-only + section{border-top:none}
+.open.slim{background:transparent;color:var(--ink);padding:40px 0 4px;border-top:none}
+.open.slim .eyebrow{display:none}
+.open.slim .line{color:var(--ink);font-size:clamp(26px,3.2vw,36px);max-width:none}
+.open.slim .belief{color:var(--ink-soft);font-size:clamp(15px,1.6vw,17.5px);margin-top:10px}
+.open.slim + section{border-top:none;padding-top:36px}
+/* taller audience tabs (Overview and Who I am) */
+.tabbar .tab{padding-block:20px;font-size:16px}
+@media(max-width:420px){.tabbar .tab{padding-block:16px;font-size:13.5px}}
+.btn.on-dark{background:var(--on-dark);border-color:var(--on-dark);color:var(--ink)}
+.btn.on-dark:hover{background:#fff;border-color:#fff;color:var(--ink)}
