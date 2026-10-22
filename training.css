@@ -155,12 +155,12 @@
 .swtr .sfc h3,.swtr .sfc h4{font-family:var(--disp);font-weight:700;font-size:18px;margin:0;line-height:1.3;letter-spacing:-.015em}
 .swtr .sfc p{font-size:14px;color:#3E4642;margin:0;line-height:1.55}
 
-/* v5 Working papers: three pillars told apart by tone of the one ink, not three hues */
-.swtr{--mint:#D7E4DF}
+/* v5 Working papers: three pillars, three colours of equal weight - olive, slate, spruce */
+.swtr{--mint:#D7E6E0;--p-i:#5A6B2B;--p-i-bg:#E3E8D8;--p-b:#2F4F6B;--p-b-bg:#DCE4EB;--p-r:#1D6657;--p-r-bg:#D7E6E0}
 .swtr .pl{border-color:transparent}
-.swtr .pl.i .hd{background:#E3E5E0}.swtr .pl.b .hd{background:#DADDD8}.swtr .pl.r .hd{background:var(--mint)}
-.swtr .pl.i .k{color:#4E5853}.swtr .pl.b .k{color:var(--ink)}.swtr .pl.r .k{color:var(--spruce)}
-.swtr .pl.i .num{background:#5F6A65}.swtr .pl.b .num{background:var(--ink)}.swtr .pl.r .num{background:var(--spruce)}
+.swtr .pl.i .hd{background:var(--p-i-bg)}.swtr .pl.b .hd{background:var(--p-b-bg)}.swtr .pl.r .hd{background:var(--p-r-bg)}
+.swtr .pl.i .k{color:var(--p-i)}.swtr .pl.b .k{color:var(--p-b)}.swtr .pl.r .k{color:var(--p-r)}
+.swtr .pl.i .num{background:var(--p-i)}.swtr .pl.b .num{background:var(--p-b)}.swtr .pl.r .num{background:var(--p-r)}
 .swtr .pl .k,.swtr .half .k,.swtr .rpdbox .k{letter-spacing:.06em}
 .swtr .pl h3,.swtr .half h3,.swtr .rpdbox h3{font-weight:700;letter-spacing:-.02em}
 .swtr .rpdbox .k,.swtr .chain i{color:var(--spruce-on-dark)}

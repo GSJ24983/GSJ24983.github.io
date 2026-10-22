@@ -605,3 +605,34 @@ mark.hl{color:inherit;background-color:transparent;padding:0 .08em;border-radius
 .beatrail li b{display:block;font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
 .beatrail li span{font-size:13.5px}
 .beatrail li.on{color:var(--ink)}.beatrail li.on b{color:var(--spruce)}
+
+/* ---------- Round 2 (22 Oct) ---------- */
+/* green section titles: another 10% (19px to 21px) */
+.eyebrow{font-size:21px}
+/* OWL keeps a soft lift on every page, so it reads as the way in */
+.ag-panel.ag-inline{box-shadow:0 1px 2px rgba(23,32,29,.06),0 20px 44px -24px rgba(23,32,29,.38)}
+
+/* In their words: each group folds, with its own words on the closed card */
+details.rgroup{background:var(--paper-2);border-radius:14px;margin-top:14px;padding:0 22px}
+details.rgroup:first-of-type{margin-top:0}
+details.rgroup>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 18px;align-items:center;padding:20px 0}
+details.rgroup>summary::-webkit-details-marker{display:none}
+details.rgroup>summary h3{margin:0 0 2px}
+details.rgroup>summary .gs{margin:0 0 10px}
+details.rgroup .kw{display:flex;flex-wrap:wrap;gap:6px 8px;margin:0}
+details.rgroup .kw span{font-size:13.5px;background:var(--lilac);color:var(--ink);border-radius:999px;padding:3px 11px}
+details.rgroup .cnt{font-size:13px;color:var(--ink-soft);display:block;margin-top:10px}
+details.rgroup[open] .tog .a{display:none}details.rgroup:not([open]) .tog .b{display:none}
+details.rgroup[open]{padding-bottom:22px}
+details.rgroup .recs{margin-top:4px}
+details.rgroup .rec{background:var(--paper)}
+@media(max-width:560px){details.rgroup{padding:0 16px}details.rgroup>summary{grid-template-columns:minmax(0,1fr)}details.rgroup>summary .tog{justify-self:start}}
+
+/* Who I am, journey: a spine through the three stops, latest first (js/moments.js fills it on scroll) */
+.jstops{position:relative;padding-left:30px}
+.jline{position:absolute;left:6px;top:30px;bottom:30px;width:3px;border-radius:3px;background:var(--line);overflow:hidden}
+.jline i{display:block;width:100%;height:100%;background:var(--spruce);transform-origin:top;transform:scaleY(0)}
+.jstops .stop{position:relative}
+.jstops .stop::before{content:"";position:absolute;left:-30px;top:31px;width:15px;height:15px;border-radius:50%;background:var(--paper-2);box-shadow:inset 0 0 0 3px var(--rule);transition:box-shadow .25s var(--ease-out),background-color .25s var(--ease-out)}
+.jstops .stop.on::before,.jstops .stop.seen::before{background:var(--spruce);box-shadow:inset 0 0 0 3px var(--spruce)}
+.jstops .stop.on .yr{color:var(--spruce)}
