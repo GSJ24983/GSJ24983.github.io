@@ -53,6 +53,16 @@
     });
   })();
 
+  /* ---------- Who I am: the journey strip (visible while folded) draws itself, latest first ---------- */
+  (function strip() {
+    var st = document.querySelector("#journey .strip");
+    if (!st) return;
+    var items = st.querySelectorAll("span"), links = st.querySelectorAll("i");
+    gsap.timeline({ scrollTrigger: { trigger: st, start: "top 85%", once: true }, defaults: { ease: "power3.out" } })
+      .from(items, { autoAlpha: 0, x: -10, duration: 0.45, stagger: 0.35 }, 0)
+      .from(links, { scaleX: 0, transformOrigin: "left center", duration: 0.35, stagger: 0.35 }, 0.25);
+  })();
+
   /* ---------- Who I am: the journey spine, latest stop first ---------- */
   (function journey() {
     var body = document.querySelector("#journey .fold-body");
@@ -82,8 +92,8 @@
     var cols = Array.prototype.slice.call(host.querySelectorAll(".pcol"));
     if (!cols.length) return;
     var parts = function (c) { return { icon: c.querySelector(".pic"), head: c.querySelector(".hd"), anchors: c.querySelectorAll("details.an") }; };
-    // Only columns not yet on screen wait for the build; anything already in view stays as it is.
-    var below = cols.filter(function (c) { var r = c.getBoundingClientRect(); return r.height > 0 && r.top > window.innerHeight * 0.55; });
+    // Every pillar the visitor has not scrolled past yet builds in, including ones already on screen when the tab opens.
+    var below = cols.filter(function (c) { var r = c.getBoundingClientRect(); return r.height > 0 && r.bottom > 0; });
     if (!below.length) return;
     pillarsDone = true;
     below.forEach(function (c) { var p = parts(c); gsap.set([p.icon, p.head], { autoAlpha: 0, y: 14 }); gsap.set(p.anchors, { autoAlpha: 0, y: 10 }); });

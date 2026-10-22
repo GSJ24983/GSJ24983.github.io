@@ -167,6 +167,7 @@
 .swtr .say{font-style:normal;color:var(--ink);border-left-color:var(--spruce)}
 .swtr .half:hover,.swtr .stc:hover{border-color:var(--ink)}
 @media (hover:none){.swtr .half:hover{border-color:transparent;transform:none}}
-.swtr .trailer{margin-top:22px;display:grid;gap:10px;max-width:880px}
+.swtr .trailer{margin:22px 0 0;display:grid;gap:10px;max-width:880px}
 .swtr .trailer video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;background:var(--ink)}
 .swtr .trailer figcaption{font-size:14px;color:var(--ink-soft)}
+.swtr .trailer .fnote{font-size:13px;color:var(--ink-soft);margin:0;max-width:80ch}
