@@ -113,6 +113,8 @@
     // Safety net: if the section is never scrolled to properly (print, odd viewport), show everything.
     window.addEventListener("beforeprint", function () { gsap.set(host.querySelectorAll(".pic,.hd,details.an"), { clearProps: "all" }); });
   }
+  // Who I am and Overview reorder sections when the audience tab changes; re-measure every scroll moment.
+  document.querySelectorAll(".tab").forEach(function (t) { t.addEventListener("click", function () { setTimeout(function () { ScrollTrigger.refresh(); }, 80); }); });
   if (document.readyState === "complete") pillars(); else document.addEventListener("DOMContentLoaded", pillars);
   document.querySelectorAll('.tab[data-t="tr"]').forEach(function (t) { t.addEventListener("click", function () { setTimeout(pillars, 60); }); });
 })();
