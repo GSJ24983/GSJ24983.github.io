@@ -486,3 +486,122 @@ dialog.bookdlg .book-note{font-size:14.5px;color:var(--ink-soft);margin:14px 22p
 dialog.bookdlg .book-frame{margin:12px 22px 22px}
 @media(max-width:640px){dialog.bookdlg .book-note{margin:12px 12px 0}dialog.bookdlg .book-frame{margin:10px 12px 16px}.book-frame iframe{height:600px}}
 .linkbtn{font:inherit;font-weight:600;color:var(--plum);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+
+/* ======================================================================
+   v5 (22 Oct 2026): Working papers theme
+   Cool stone ground, green-black ink, one spruce accent, Schibsted Grotesk
+   for everything, self-hosted. Gaurav's hand-drawn diagrams are the only
+   decoration. Replaces cream / Fraunces / Inter / plum / ochre.
+   ====================================================================== */
+@font-face{font-family:"Schibsted Grotesk";src:url(fonts/schibsted-grotesk.woff2) format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Tiro Devanagari Marathi";src:url(fonts/tiro-devanagari-marathi-swanubhava.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+:root{
+ --paper:#E9EAE6;--paper-2:#F5F5F2;--ink:#17201D;--ink-soft:#535A56;--line:#D6D8D3;--rule:#C4C7C1;
+ --plum:#17201D;--plum-deep:#17201D;--spruce:#1D6657;--ochre:#1D6657;--cream:#E9EAE6;--lilac:#DDDFDA;
+ --on-dark:#F2F3EF;--on-dark-soft:#AEB6B1;--spruce-on-dark:#9EC4B7;
+ --disp:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;--sans:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+ --ease-out:cubic-bezier(.23,1,.32,1)}
+html{-webkit-tap-highlight-color:transparent}
+body{font-size:16.5px;line-height:1.6;font-kerning:normal}
+h1,h2,h3{font-weight:700;letter-spacing:-.025em;line-height:1.1}
+::selection{background:var(--spruce);color:#fff}
+a{text-underline-offset:.18em;text-decoration-thickness:.07em}
+a,button,summary,.door,.btn{touch-action:manipulation}
+p{text-wrap:pretty}
+
+/* section titles (the green ones): 30% more prominent */
+.eyebrow{font-size:19px;font-weight:700;letter-spacing:-.01em;color:var(--spruce);margin-bottom:12px}
+.open .eyebrow,.open.compact .eyebrow{color:var(--spruce-on-dark)}
+.open.lite .eyebrow{color:var(--spruce)}
+
+/* bigger, tighter display type - size does the work, not ornament */
+.head{font-size:clamp(28px,3.9vw,42px);letter-spacing:-.03em;line-height:1.05}
+.signoff h2{font-size:clamp(28px,3.9vw,42px)}
+.open .line{font-weight:700;letter-spacing:-.03em;color:var(--on-dark)}
+.open .hook{font-weight:700;letter-spacing:-.03em}
+.open .belief,.owlmark .tag,.anchor-ex .says,.skillcol .sd{font-style:normal}
+.open .belief{color:var(--on-dark-soft)}
+.open{color:var(--on-dark)}
+#landing h1.name,#landing .hero-brand .name{font-weight:800;font-size:clamp(34px,5vw,52px);letter-spacing:-.04em}
+#landing .motto{color:var(--ink)}
+#landing .doors-h{font-weight:700;letter-spacing:-.02em}
+
+/* nav and audience tabs */
+header.nav{background:rgba(233,234,230,.94)}
+.nav .name{font-weight:800;letter-spacing:-.03em}
+.nav .links a.on{border-bottom-color:var(--spruce)}
+.tab{color:var(--on-dark-soft);padding-block:14px}
+.tab:hover{color:var(--on-dark)}
+.tab.on{color:var(--on-dark);background:rgba(242,243,239,.08);border-bottom-color:var(--on-dark)}
+
+/* surfaces: told apart by tone, not by shadow */
+.door,.door:hover,.tcard,.ag-panel.ag-inline{box-shadow:none}
+.door{border-color:transparent}
+.door:hover{border-color:var(--ink)}
+.blk,.blk:hover,details.case{border-top-width:1px;border-top-color:var(--line)}
+.blk:hover{border-color:var(--ink)}
+.blk.art .k{color:var(--spruce)}
+.tcard{border-color:transparent}
+.tcard .qm{color:var(--spruce)}
+.theme blockquote{border-left-color:var(--spruce)}
+.anchor-ex{border-left-color:var(--spruce)}
+.beat{color:var(--ink);background:var(--lilac)}
+.stars i{background:var(--spruce)}.stars i.o{border-color:var(--spruce)}
+.stars i.h{background:linear-gradient(90deg,var(--spruce) 50%,transparent 50%);border-color:var(--spruce)}
+
+/* dark bands */
+.swan h3,.swan-link h3,.play h3{color:var(--on-dark)}
+.swan p,.swan-link p,.play p{color:var(--on-dark-soft)}
+.swan .anchors span{border-color:rgba(242,243,239,.25)}
+.play .btn,.swan-link .btn{background:var(--on-dark);border-color:var(--on-dark);color:var(--ink)}
+.play .btn:hover,.swan-link .btn:hover{background:#fff;border-color:#fff;color:var(--ink)}
+.enlarge{color:var(--spruce-on-dark)}
+.open.lite .enlarge{color:var(--spruce)}
+
+/* buttons: press feedback, named transitions */
+.btn,.tab,.door{transition:background-color .15s var(--ease-out),color .15s var(--ease-out),border-color .15s var(--ease-out),transform .12s var(--ease-out)}
+.btn:hover{background:var(--ink);border-color:var(--ink)}
+.btn.primary{background:var(--ink);border-color:var(--ink)}
+.btn.primary:hover{background:var(--spruce);border-color:var(--spruce)}
+.btn:active,.door:active{transform:scale(.97)}
+@media(max-width:760px){.pm-cta .m-first{background:var(--ink);border-color:var(--ink)}}
+
+/* phones: no sticky hover after a tap */
+@media (hover:none){
+ .btn:hover{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}
+ .btn.primary:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+ .play .btn:hover,.swan-link .btn:hover{background:var(--on-dark);border-color:var(--on-dark)}
+ .door:hover{transform:none;border-color:transparent}
+ .blk:hover{border-color:var(--line)}
+ .dl a:hover{background:transparent}
+ .tab:hover{background:transparent;color:var(--on-dark-soft)}.tab.on:hover{color:var(--on-dark)}
+ a:hover{text-decoration:none}
+}
+
+/* Swanubhava in Marathi: one detail from Gaurav's own world */
+.deva{font-family:"Tiro Devanagari Marathi","Noto Serif Devanagari",serif;font-weight:400;letter-spacing:0;font-size:1.25em;line-height:1;margin-right:.35em;color:inherit}
+
+/* dialogs */
+dialog.hwdlg{border:0;box-shadow:0 16px 40px rgba(23,32,29,.22)}
+dialog.hwdlg::backdrop{background:rgba(23,32,29,.55)}
+
+/* audit fixes (Impeccable): breathing room inside the tab bar and framework list */
+.fw-list{padding-block:4px}
+.open .hook,.open .line{line-height:1.12}
+
+/* ---------- Batch 3: scroll moments (js/moments.js) ---------- */
+/* In their words: the words each theme stands on. Fully drawn at rest; moments.js draws it in on scroll. */
+mark.hl{color:inherit;background-color:transparent;padding:0 .08em;border-radius:2px;background-image:linear-gradient(rgba(29,102,87,.2),rgba(29,102,87,.2)); /* taste-skill-ignore: flat highlighter fill, not a decorative gradient */
+ background-repeat:no-repeat;background-position:0 100%;background-size:100% 100%;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+/* Who I am: Shape - Ship - Synchronize rail beside the results (desktop) and an active marker on the result in view */
+.pill{transition:box-shadow .25s var(--ease-out)}
+.pill.on{box-shadow:inset 4px 0 0 var(--spruce)}
+.moved-grid{display:grid;grid-template-columns:170px minmax(0,1fr);gap:28px;align-items:start}
+.beatrail{position:sticky;top:96px;display:grid;grid-template-columns:4px 1fr;gap:16px;padding-top:12px}
+.beatrail .track{background:var(--line);border-radius:4px;overflow:hidden;min-height:180px}
+.beatrail .fill{display:block;width:100%;height:100%;background:var(--spruce);transform-origin:top;transform:scaleY(0)}
+.beatrail ol{list-style:none;margin:0;padding:0;display:grid;gap:22px}
+.beatrail li{color:var(--ink-soft);transition:color .2s var(--ease-out)}
+.beatrail li b{display:block;font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.beatrail li span{font-size:13.5px}
+.beatrail li.on{color:var(--ink)}.beatrail li.on b{color:var(--spruce)}
