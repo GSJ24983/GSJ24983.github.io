@@ -127,6 +127,7 @@
 .ag-ghost{background:none;border:1px solid var(--rule,#C4C7C1);border-radius:10px;padding:7px 12px;font:500 13px var(--sans,system-ui,sans-serif);cursor:pointer;color:var(--ink-soft,#535A56)}\
 .ag-count{font-size:11.5px;color:var(--ink-soft,#535A56);text-align:right;margin:4px 6px 0}.ag-count.over{color:#A2332B;font-weight:600}\
 .ag-long{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.ag-long button,.ag-long a{font:600 13px var(--sans,system-ui,sans-serif);border-radius:999px;padding:7px 12px;cursor:pointer;text-decoration:none;border:1px solid var(--line,#D6D8D3);background:#fff;color:var(--ink,#17201D)}.ag-long a{background:var(--plum,#17201D);color:#fff;border-color:var(--plum,#17201D)}\
+.ag-note.ag-foot{font-size:10.5px;line-height:1.35;margin-top:6px}\
 .ag-note{font-size:11.5px;color:var(--ink-soft,#535A56);margin:8px 4px 0;line-height:1.4}.ag-note a{color:var(--spruce,#1D6657);font-weight:600}\
 #ask-gaurav-inline[hidden]{display:none!important}#ask-gaurav-inline{display:grid;gap:10px}\
 .ag-panel.ag-inline{position:static;width:100%;max-width:none;height:auto;max-height:600px;box-shadow:none;text-align:left}\
@@ -138,6 +139,33 @@
 @media(max-width:560px){.ag-panel.ag-inline{height:auto;max-height:640px;width:100%;border:1px solid var(--line,#D6D8D3);border-radius:18px}}\
 @media(max-width:560px){.ag-panel:not(.ag-inline){right:0;bottom:0;width:100vw;max-width:100vw;height:100dvh;border-radius:0;border:0}.ag-btn{right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px))}}\
 @media(max-width:560px){.ag-panel:not(.ag-inline) .ag-max{display:none}.ag-inline .ag-tools{margin-left:auto}.ag-panel.ag-big,.ag-panel.ag-inline.ag-big{left:0;top:0;transform:none;width:100vw;height:100dvh;border-radius:0;border:0}.ag-big .ag-log{padding:16px 14px}.ag-big .ag-in{padding:12px 14px}}\
+/* wait window (Oct 2026): water globe, status lines, takes deck */\
+.ag-wt{display:grid;grid-template-rows:1fr;transition:grid-template-rows .5s cubic-bezier(.23,1,.32,1),opacity .4s;flex:none}\
+.ag-wt.ag-hide{grid-template-rows:0fr;opacity:0}.ag-wt[hidden]{display:none}\
+.ag-wt>div{overflow:hidden;min-height:0}\
+.ag-wt-in{position:relative;padding-top:41px;max-width:420px;width:100%;margin:0 auto}\
+.ag-globe{position:absolute;left:50%;top:0;transform:translateX(-50%);width:83px;height:83px;z-index:1}.ag-globe svg{width:100%;height:100%;display:block}\
+.ag-globe.ag-pop{animation:agpop .5s ease}@keyframes agpop{50%{transform:translateX(-50%) scale(1.07)}}\
+.ag-wcard{background:#fff;border:1px solid var(--line,#D6D8D3);border-radius:16px;padding:50px 16px 14px}\
+.ag-wstat{font-weight:600;font-size:13.5px;line-height:1.35;text-align:center;min-height:2.7em;display:flex;align-items:center;justify-content:center;text-wrap:balance;color:var(--ink,#17201D)}\
+.ag-wstat span{transition:opacity .22s,transform .22s}.ag-wstat span.ag-out2{opacity:0;transform:translateY(4px)}\
+.ag-wbars{display:flex;justify-content:center;gap:5px;margin-top:9px}.ag-wbars i{width:28px;height:4px;border-radius:2px;background:var(--line,#D6D8D3);transition:background .3s}.ag-wbars i.on{background:var(--spruce,#1D6657)}\
+.ag-wcard.ag-deckon .ag-wnote{display:none}\
+.ag-wnote{font-size:10.5px;color:var(--ink-soft,#535A56);margin:11px 0 0;line-height:1.45;text-align:center;text-wrap:balance}\
+.ag-wqa{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.23,1,.32,1),margin .45s}.ag-wqa.on{grid-template-rows:1fr;margin-top:14px}.ag-wqa>div{overflow:hidden;min-height:0}\
+.ag-wqa-in{border-top:1px dashed var(--line,#D6D8D3);padding-top:12px}\
+.ag-wlbl{display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--spruce,#1D6657);margin-bottom:8px}.ag-wlbl span{color:var(--ink-soft,#535A56);letter-spacing:0;text-transform:none;font-weight:500}\
+.ag-deck{position:relative;height:116px;touch-action:pan-y;user-select:none;-webkit-user-select:none}\
+.ag-tc{position:absolute;inset:0;background:#17201D;color:#F2F3EF;border-radius:12px;padding:14px 15px 11px;display:flex;flex-direction:column;justify-content:space-between;cursor:grab;will-change:transform}\
+.ag-tc p{font-size:inherit;line-height:1.45;font-weight:700;margin:0;text-wrap:balance}\
+.ag-tc .ag-src{font-size:11px;color:#AEB6B1;display:flex;justify-content:space-between;align-items:center;gap:10px}.ag-tc .ag-src span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}\
+.ag-tc .ag-src a{flex:none;color:#9EC4B7;font-weight:600;text-decoration:none;padding:4px 0 4px 8px}\
+.ag-tc.b1{transform:translateY(6px) scale(.965);opacity:.55}.ag-tc.b2{transform:translateY(12px) scale(.93);opacity:.25}\
+.ag-wnav{display:flex;align-items:center;justify-content:space-between;margin-top:15px}\
+.ag-wnav button{width:36px;height:36px;border-radius:50%;border:1px solid var(--rule,#C4C7C1);background:#fff;color:var(--ink,#17201D);font-size:19px;line-height:1;cursor:pointer}\
+.ag-wnav span{font-size:12px;color:var(--ink-soft,#535A56);font-variant-numeric:tabular-nums}\
+.ag-wave{animation:agdrift 2.6s linear infinite}.ag-wave.b{animation-duration:3.8s;animation-direction:reverse}@keyframes agdrift{to{transform:translateX(-50px)}}\
+@media(prefers-reduced-motion:reduce){.ag-wave,.ag-globe.ag-pop{animation:none}.ag-wt,.ag-wqa,.ag-wstat span{transition:none}}\
 @media print{.ag-btn,.ag-panel,.ag-dim{display:none!important}}";
   var TICK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l5 2v4c0 3.2-2.1 5.6-5 6.9-2.9-1.3-5-3.7-5-6.9v-4z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.6 8.1l1.7 1.7 3.2-3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
   function av() { var a = document.createElement("span"); a.className = "ag-av"; a.innerHTML = OWL; return a; }
@@ -168,7 +196,7 @@
   send.innerHTML = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4M4.5 9.5L10 4l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var form = el("form", {}, [ta, send]);
   var trust = el("span", { class: "ag-trust" }); trust.innerHTML = TICK + "Every fact checked";
-  var note = el("p", { class: "ag-note" });
+  var note = el("p", { class: "ag-note ag-foot" });
   // Shown when today's budget is spent: typed questions pause, the suggested questions keep working
   var modeNote = el("p", { class: "ag-note", hidden: "", text: "Typed questions are paused for today - the suggested questions still work." });
   note.appendChild(document.createTextNode("Answers are written by Google Gemini and checked by Anthropic Claude. Questions are logged to improve OWL and deleted after 12 months - no names, unless you share your email or use a personal invite link. Feedback on me? "));
@@ -332,21 +360,171 @@
       .then(function (r) { return r.json(); });
   }
   var busy = false;
-  // Honest progress: three stages and a running clock, so a 10-20 second wait never looks stuck
+  // ---------- wait window (Oct 2026) ----------
+  // Honest progress: every status line is true of every request, the globe fills fast then slows and never
+  // reaches the top until the answer lands (so it can't run out like a countdown), and from 6 seconds the
+  // visitor can swipe through Gaurav's own lines from his LinkedIn writing.
+  var WAIT_LINES = [
+    "Reading Gaurav's entire portfolio. Yes, all of it.",
+    "Drafting an answer. Resisting the urge to embellish.",
+    "Checking every quote word by word.",
+    "A second AI is now cross-examining the first.",
+    "Looking for anything I can't back up.",
+    "If it isn't in the portfolio, it doesn't leave this room."
+  ];
+  var WAIT_LONG = "Still going. Longer answers mean more facts to check.";
+  var LI = "https://www.linkedin.com/pulse/";
+  var TAKE_SRC = {
+    sp: ["Statistical Porn", LI + "statistical-porn-how-small-samples-fool-smart-people-gaurav-joshi-0vwhf/"],
+    ai: ["Dear AI, it's not you. It's me", LI + "dear-ai-its-you-me-gaurav-joshi-bz80f/"],
+    fb: ["I forgot the most fundamental thing", LI + "excitement-shipping-my-first-ai-product-i-forgot-most-gaurav-joshi-mgvdc/"],
+    cx: ["The decision that cost me 3.75x more", LI + "product-decision-cost-me-375x-more-why-id-make-again-gaurav-joshi-apkvf/"],
+    p1: ["Building my first AI product", LI + "ive-been-product-manager-18-years-building-my-first-ai-gaurav-joshi-qzyqf/"],
+    kh: ["'Know-how' is not enough", LI + "know-how-enough-build-product-gaurav-joshi-oa4nf/"],
+    li: ["Listening is overrated", LI + "listening-overrated-gaurav-joshi"],
+    pr: ["The (almost) Perfect Predator", LI + "almost-perfect-predator-gaurav-joshi"],
+    ad: ["Airplane Disembarking Disorder", LI + "airplane-disembarking-disorder-gaurav-joshi"],
+    pf: ["LinkedIn post", "https://lnkd.in/p/dtpwM3RS"],
+    ps: ["LinkedIn post", "https://lnkd.in/p/dgH-d2bG"]
+  };
+  var TAKES = [
+    ["Users don't remember ten good answers. They remember the one cut-off.", "cx"],
+    ["Always, always, and always check the sample size.", "sp"],
+    ["One of my best product improvements involved zero AI. It was a dictionary.", "p1"],
+    ["Can you measure how trustworthy your AI system is?", "ai"],
+    ["Feedback is a product decision. Not a feature you add at the end.", "fb"],
+    ["Know-how isn't enough to build a product. You need know-why and know-why-not.", "kh"],
+    ["Scoping teaches you the shape of the problem. Building teaches you the texture.", "p1"],
+    ["Statistical porn: findings that please the eye, with almost no truth behind them.", "sp"],
+    ["Availability is a product decision, not an infrastructure problem.", "cx"],
+    ["Interviews tell you what users think. Usage data tells you what they did.", "fb"],
+    ["Ever heard of Airplane Disembarking Disorder?", "ad"],
+    ["The system prompt is a product specification. Treat it like one.", "p1"],
+    ["Seeing a trend? Ask what the opposite side looks like.", "sp"],
+    ["Every parameter you set is a promise: completeness, availability, reliability.", "cx"],
+    ["Listen. Comprehend. Communicate. Listening alone is only the input.", "li"],
+    ["Data doesn't replace talking to users. It's a different kind of truth.", "fb"],
+    ["Your users' words and your document's words are not the same.", "p1"],
+    ["Don't architect for scale before you understand your usage.", "cx"],
+    ["As a PM, what can you learn from a dragonfly?", "pr"],
+    ["Before committing, ask: if this fails in six months, what's the likeliest reason?", "sp"],
+    ["The right tool isn't the most sophisticated. It's the one that works where users are.", "cx"],
+    ["Watch out for AI's flattery.", "pf"],
+    ["Builder mindset and operator mindset are not the same.", "fb"],
+    ["The deployment environment is the product context.", "cx"],
+    ["Invisible stretch marks: what the brain carries after being stretched by consequences.", "ps"]
+  ];
+  var takeIdx = (parseInt(lget("take") || "0", 10) || 0) % TAKES.length;
+  var waitSeq = 0, lastWait = null;
+  function wavePath(amp, ph) { var d = "M0 0"; for (var x = 0; x <= 200; x += 10) d += " L" + x + " " + (amp * Math.sin((x + ph) / 50 * 2 * Math.PI)).toFixed(2); return d + " L200 130 L0 130 Z"; }
+  function globeSvg(n) {
+    var w1 = wavePath(2.4, 0), w2 = wavePath(2.8, 22), f = "font-family=\"Schibsted Grotesk,Helvetica Neue,Arial,sans-serif\"";
+    var num = function (fill, id) { return '<text data-t="' + id + '" x="50" y="57" text-anchor="middle" ' + f + ' font-weight="800" font-size="26" fill="' + fill + '" style="font-variant-numeric:tabular-nums">0</text>'; };
+    var lbl = function (fill) { return '<text x="50" y="70" text-anchor="middle" ' + f + ' font-weight="600" font-size="8.5" letter-spacing=".8" fill="' + fill + '">SEC</text>'; };
+    var owl = OWL.replace('<svg viewBox="0 0 120 120" aria-hidden="true">', '<svg x="18" y="16" width="64" height="64" viewBox="0 0 120 120" opacity=".14">');
+    return '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><clipPath id="agg' + n + '"><circle cx="50" cy="50" r="46"/></clipPath>' +
+      '<clipPath id="agw' + n + '"><path data-w="1" transform="translate(0,96)" d="' + w1 + '"/></clipPath></defs>' +
+      '<g clip-path="url(#agg' + n + ')"><rect width="100" height="100" fill="#F5F5F2"/>' + owl +
+      '<g data-w="1" transform="translate(0,96)"><path class="ag-wave b" d="' + w2 + '" fill="#5E9A8B" opacity=".55"/><path class="ag-wave" d="' + w1 + '" fill="#1D6657"/></g>' +
+      num("#17201D", "a") + lbl("#535A56") + '<g clip-path="url(#agw' + n + ')">' + num("#F2F3EF", "b") + lbl("#CFE1DA") + '</g></g>' +
+      '<circle cx="50" cy="50" r="46.5" fill="none" stroke="#17201D" stroke-width="4"/></svg>';
+  }
   function thinking() {
-    var steps = ["Reading Gaurav's portfolio", "Drafting an answer", "Checking every fact"];
-    var box = el("div", { class: "ag-think", role: "status" });
-    var rows = steps.map(function (t) { var r = el("div", { class: "ag-step" }, [el("i"), el("span", { text: t })]); box.appendChild(r); return r; });
-    var secs = el("b", { text: "0s" });
-    box.appendChild(el("div", { class: "ag-wait" }, [document.createTextNode("New questions take 10-20 seconds. Every fact is checked against his portfolio, by code and a second AI, before you see it. "), secs]));
-    var row = botRow(box), t0 = Date.now();
-    function paint() {
-      var s = Math.floor((Date.now() - t0) / 1000), stage = s < 2 ? 0 : s < 6 ? 1 : 2;
-      rows.forEach(function (r, i) { r.className = "ag-step" + (i < stage ? " done" : i === stage ? " on" : ""); });
-      secs.textContent = s + "s";
+    if (lastWait) { lastWait.kill(); lastWait = null; }
+    var n = ++waitSeq, t0 = Date.now(), li = 0, lastTouch = -1e9, finished = false, timers = [];
+    var globe = el("div", { class: "ag-globe" }); globe.innerHTML = globeSvg(n);
+    var stat = el("span", { text: WAIT_LINES[0] });
+    var bars = el("div", { class: "ag-wbars", "aria-hidden": "true" }, [el("i", { class: "on" }), el("i"), el("i")]);
+    var deck = el("div", { class: "ag-deck", "aria-roledescription": "card deck" });
+    var count = el("span");
+    var qa = el("div", { class: "ag-wqa", "aria-hidden": "true" }, [el("div", {}, [el("div", { class: "ag-wqa-in" }, [
+      el("div", { class: "ag-wlbl" }, [document.createTextNode("While you wait"), el("span", { text: "Gaurav's takes" })]),
+      deck,
+      el("div", { class: "ag-wnav" }, [
+        el("button", { type: "button", "aria-label": "Previous take", text: "‹", onclick: function () { flip(-1, deck.lastChild); } }),
+        count,
+        el("button", { type: "button", "aria-label": "Next take", text: "›", onclick: function () { flip(1, deck.lastChild); } })
+      ])
+    ])])]);
+    var card = el("div", { class: "ag-wcard" }, [el("div", { class: "ag-wstat", role: "status" }, [stat]), bars,
+      el("p", { class: "ag-wnote", text: "New questions take 10-20 seconds. Every fact is checked against his portfolio, by code and a second AI, before you see it." }), qa]);
+    var box = el("div", { class: "ag-wt", hidden: "" }, [el("div", {}, [el("div", { class: "ag-wt-in" }, [globe, card])])]);
+    log.appendChild(box);
+    var nums = globe.querySelectorAll("[data-t]"), waters = globe.querySelectorAll("[data-w]");
+    function level(p) { var y = (96 - 92 * p).toFixed(2); for (var i = 0; i < waters.length; i++) waters[i].setAttribute("transform", "translate(0," + y + ")"); }
+    function secs(v) { for (var i = 0; i < nums.length; i++) nums[i].textContent = String(v); }
+    function renderDeck() {
+      deck.innerHTML = "";
+      for (var k = 2; k >= 0; k--) {
+        var tk = TAKES[(takeIdx + k) % TAKES.length], src = TAKE_SRC[tk[1]];
+        var link = el("a", { href: src[1], target: "_blank", rel: "noopener", text: "Read ›" });
+        link.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+        var c = el("div", { class: "ag-tc" + (k === 1 ? " b1" : k === 2 ? " b2" : "") }, [el("p", { text: tk[0] }), el("div", { class: "ag-src" }, [el("span", { text: src[0] }), link])]);
+        if (k === 0) drag(c);
+        deck.appendChild(c);
+      }
+      count.textContent = (takeIdx + 1) + " / " + TAKES.length;
+      lset("take", String(takeIdx));
     }
-    paint(); var timer = setInterval(paint, 500);
-    return { remove: function () { clearInterval(timer); row.remove(); } };
+    function flip(dir, c) {
+      lastTouch = Date.now();
+      var go = function () { takeIdx = (takeIdx + dir + TAKES.length) % TAKES.length; renderDeck(); };
+      if (!c) return go();
+      c.style.transition = "transform .26s ease, opacity .26s ease";
+      c.style.transform = "translateX(" + (dir > 0 ? -125 : 125) + "%) rotate(" + (dir > 0 ? -12 : 12) + "deg)";
+      c.style.opacity = "0"; setTimeout(go, 240);
+    }
+    function drag(c) {
+      var x0 = null, dx = 0;
+      c.addEventListener("pointerdown", function (e) { x0 = e.clientX; dx = 0; try { c.setPointerCapture(e.pointerId); } catch (er) {} c.style.transition = "none"; lastTouch = Date.now(); });
+      c.addEventListener("pointermove", function (e) { if (x0 === null) return; dx = e.clientX - x0; c.style.transform = "translateX(" + dx + "px) rotate(" + (dx / 20) + "deg)"; lastTouch = Date.now(); });
+      function end() { if (x0 === null) return; x0 = null;
+        if (Math.abs(dx) > 60) flip(dx < 0 ? 1 : -1, c);
+        else if (Math.abs(dx) < 6) flip(1, c);
+        else { c.style.transition = "transform .22s ease"; c.style.transform = ""; } }
+      c.addEventListener("pointerup", end); c.addEventListener("pointercancel", end);
+    }
+    function paint() {
+      if (finished) return;
+      var s = (Date.now() - t0) / 1000, stage = s < 4 ? 0 : s < 8 ? 1 : 2;
+      for (var i = 0; i < 3; i++) bars.children[i].className = i <= stage ? "on" : "";
+      secs(Math.floor(s)); level(Math.min(0.92, 1 - Math.exp(-s / 9)));
+    }
+    function nextLine() {
+      if (finished) return;
+      var s = (Date.now() - t0) / 1000; li++;
+      stat.className = "ag-out2";
+      setTimeout(function () { stat.textContent = s > 20 && li % 3 === 0 ? WAIT_LONG : WAIT_LINES[li % WAIT_LINES.length]; stat.className = ""; }, 200);
+    }
+    renderDeck(); paint();
+    var tick = setInterval(paint, 250), lines = setInterval(nextLine, 2600);
+    // Fast answers (approved, cached) never flash the window: it appears only after 0.6 s
+    timers.push(setTimeout(function () { box.hidden = false; scroll(); }, 600));
+    timers.push(setTimeout(function () { card.classList.add("ag-deckon"); qa.className = "ag-wqa on"; qa.setAttribute("aria-hidden", "false"); setTimeout(scroll, 520); }, 6000));
+    function stop() { finished = true; clearInterval(tick); clearInterval(lines); timers.forEach(clearTimeout); }
+    var api = {
+      holding: false,
+      remove: function () { stop(); box.remove(); if (lastWait === api) lastWait = null; },
+      kill: function () { api.remove(); },
+      // The answer has landed: fill the globe, put the answer above the window, and fold the window
+      // away once the visitor has stopped swiping (never pull a card from under a finger).
+      done: function (answerFirst) {
+        if (box.hidden) return api.remove();
+        stop(); level(1); secs(Math.max(1, Math.round((Date.now() - t0) / 1000)));
+        for (var i = 0; i < 3; i++) bars.children[i].className = "on";
+        stat.textContent = "Done. Every fact checked."; globe.classList.add("ag-pop");
+        log.appendChild(box);
+        if (answerFirst) log.scrollTop += answerFirst.getBoundingClientRect().top - log.getBoundingClientRect().top - 12;
+        api.holding = true;
+        (function waitIdle() {
+          var idle = Date.now() - lastTouch;
+          if (qa.className.indexOf("on") > -1 && idle < 2500) return setTimeout(waitIdle, 2550 - idle);
+          setTimeout(function () { box.classList.add("ag-hide"); setTimeout(api.remove, 550); }, 700);
+        })();
+      }
+    };
+    lastWait = api;
+    return api;
   }
   function ask(q) {
     q = (q || "").trim();
@@ -370,7 +548,7 @@
     }
     send(false)
       .then(function (r) {
-        typing.remove();
+        var firstNew = log.lastChild;
         var a = r.answer || "Something went wrong. You can reach Gaurav - " + CONTACT + ".";
         var counted = ["answer", "navigate", "clarify", "interview", "not_covered", "handoff", "off_topic", "unverified"].indexOf(r.status) > -1;
         history.push({ q: q, a: a, links: r.links || [], status: r.status, id: counted ? r.id : null, approved: !!r.approved }); set("history", history);
@@ -381,12 +559,15 @@
         else if (typeof r.left === "number" && r.left <= 3) log.appendChild(el("div", { class: "ag-left",
           text: r.left === 0 ? "That was your last question for today." : r.left + " question" + (r.left === 1 ? "" : "s") + " left today." }));
         if (r.status !== "limit_unlock") maybeLead();
+        // the first node added after the wait window is the answer's row
+        var ansRow = firstNew && firstNew.nextSibling;
+        typing.done(ansRow);
       })
       .catch(function () {
         typing.remove();
         bubbleA("I couldn't reach the assistant just now. You can reach Gaurav directly - " + CONTACT + ".", [], "error");
       })
-      .then(function () { busy = false; send.disabled = false; scroll(); ta.focus(); });
+      .then(function () { busy = false; send.disabled = false; if (!typing.holding) scroll(); ta.focus(); });
   }
 
   // Over the limit (often a pasted job description): fixed text, no model call, nothing counted or sent.
