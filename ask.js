@@ -30,14 +30,17 @@
   set("session", session);
   var history = get("history", []);       // [{q, a, links, status}]
   var leadDone = get("lead", false);
+  // v6: the site a page belongs to (<html data-site>) decides who the visitor is
+  var SITE = document.documentElement.getAttribute("data-site");
   function sitePersona() {
+    if (["ft", "con", "tr"].indexOf(SITE) > -1) return SITE;
     var p = new URLSearchParams(location.search).get("for");
     if (!p) { try { p = sessionStorage.getItem("gj-for"); } catch (e) {} }
     return ["ft", "con", "tr"].indexOf(p) > -1 ? p : null;
   }
   var INLINE = !!document.getElementById("ask-gaurav-inline");
   // On the landing page (embedded chat) nobody has said why they are here yet, so start neutral
-  var persona = get("persona", null) || sitePersona() || (INLINE ? "unknown" : "ft");
+  var persona = (SITE && sitePersona()) || get("persona", null) || sitePersona() || (INLINE ? "unknown" : "ft");
   // Long-lived per-browser id and access code (localStorage), so daily limits hold across visits
   function lget(k) { try { return localStorage.getItem("ask-" + k); } catch (e) { return null; } }
   function lset(k, v) { try { localStorage.setItem("ask-" + k, v); } catch (e) {} }
@@ -187,6 +190,7 @@
     [av(), el("span", { text: "Ask about Gaurav" })]);
   var log = el("div", { class: "ag-log", "aria-live": "polite" });
   var who = el("div", { class: "ag-who", role: "group", "aria-label": "I'm here because I'm..." });
+  if (SITE) who.hidden = true;   // v6: on a site the visitor type is already known, so no picker
   // Questions are limited to MAXQ characters (the Worker has the same cap). The box accepts a longer paste on purpose,
   // so the visitor sees why it won't go through instead of having it silently cut off.
   var MAXQ = 500;

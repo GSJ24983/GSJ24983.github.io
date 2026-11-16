@@ -1,0 +1,9 @@
+/* v6 (Nov 2026): three sites from one design. Shared additions on top of site.css. */
+#landing.home-hero{min-height:auto;padding:56px 22px 36px}
+.owl-home{padding:28px 0 8px}
+.owl-home #ask-gaurav-inline{max-width:880px;margin:0 auto}
+.nav .brand .site-tag{font:700 11.5px var(--sans);letter-spacing:.03em;color:#fff;background:var(--spruce);border-radius:6px;padding:3px 8px;margin-left:2px;white-space:nowrap}
+.nav .brand .deva{font-size:23px;margin-right:2px}
+.site-foot .foot-also{font-size:13px;margin:0 0 8px;color:var(--ink)}
+.site-foot .foot-also a{color:var(--spruce)}
+@media(max-width:420px){.nav .brand .site-tag{display:none}}

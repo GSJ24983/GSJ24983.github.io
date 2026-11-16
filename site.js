@@ -5,7 +5,10 @@
    - Links to #something open any collapsed section that holds the target */
 (function(){
   var TABS=['ft','con','tr'];
+  // v6: each site says who it is for on <html data-site="ft|con|tr">; that wins over ?for= and the old tab memory
+  var SITE=document.documentElement.getAttribute('data-site');
   function current(){
+    if(TABS.indexOf(SITE)>-1) return SITE;
     var p=new URLSearchParams(location.search).get('for');
     if(TABS.indexOf(p)>-1) return p;
     try{var s=sessionStorage.getItem('gj-for');if(TABS.indexOf(s)>-1)return s;}catch(e){}
@@ -26,6 +29,7 @@
     document.querySelectorAll('[data-order-'+t+']').forEach(function(box){
       box.getAttribute('data-order-'+t).split(' ').forEach(function(k){var c=box.querySelector(':scope > [data-k="'+k+'"]');if(c)box.appendChild(c)});
     });
+    if(SITE) return;
     try{sessionStorage.setItem('gj-for',t)}catch(e){}
     if(document.querySelector('.tab')){
       var u=new URL(location.href);u.searchParams.set('for',t);history.replaceState(null,'',u);

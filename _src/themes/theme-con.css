@@ -1,0 +1,6 @@
+/* Product consulting: warm sand ground, burnt-sienna accent. Same layout as Working papers. */
+:root{--paper:#ECE7DD;--paper-2:#F7F4EE;--ink:#1F1A14;--ink-soft:#5B5248;--line:#D9D1C3;--rule:#CFC6B7;
+ --plum:#1F1A14;--plum-deep:#1F1A14;--spruce:#8A4B12;--ochre:#8A4B12;--cream:#ECE7DD;--lilac:#E2D9CA;
+ --on-dark:#F7F4EE;--on-dark-soft:#C9BFB1;--spruce-on-dark:#E2B98A}
+header.nav{background:rgba(236,231,221,.95)}
+.btn.primary:hover{background:var(--spruce);border-color:var(--spruce)}

@@ -1,0 +1,18 @@
+/* Swanubhava: cool lilac ground, plum accent, deep plum header and hero. Pillar colours stay olive / slate / spruce. */
+:root{--paper:#ECE9F0;--paper-2:#F7F5FA;--ink:#1D1726;--ink-soft:#574F63;--line:#D8D2E1;--rule:#CEC7D8;
+ --plum:#1D1726;--plum-deep:#221830;--spruce:#5B2A7A;--ochre:#5B2A7A;--cream:#ECE9F0;--lilac:#E1DAEA;
+ --on-dark:#F2EEF7;--on-dark-soft:#BDB2CC;--spruce-on-dark:#D9CBEA}
+header.nav{background:var(--plum-deep);border-bottom-color:rgba(242,238,247,.12)}
+.nav .brand,.nav .name{color:var(--on-dark)}
+.nav .links a{color:var(--on-dark-soft)}.nav .links a.on{color:var(--on-dark);border-bottom-color:var(--on-dark)}
+.menu-btn{color:var(--on-dark);border-color:rgba(242,238,247,.35)}
+@media(max-width:700px){.nav .links{background:var(--plum-deep);border-bottom-color:rgba(242,238,247,.12)}.nav .links a{border-top-color:rgba(242,238,247,.12)}}
+.open.sw-hero{background:var(--plum-deep);color:var(--on-dark);padding:64px 0 60px}
+.open.sw-hero .eyebrow{color:var(--on-dark-soft);font-size:16px}
+.open.sw-hero .eyebrow .deva{display:block;font-size:clamp(54px,8.5vw,104px);color:var(--spruce-on-dark);margin:0 0 14px}
+.open.sw-hero .hook,.open.sw-hero .hook.tr-hook{color:var(--on-dark);white-space:normal;max-width:24ch;font-size:clamp(28px,4.4vw,48px);line-height:1.08}
+.open.sw-hero .tr-lede{color:var(--on-dark-soft)}
+.open.sw-hero .btn{color:var(--on-dark);border-color:rgba(242,238,247,.4);background:transparent}
+.open.sw-hero .btn.primary{background:var(--on-dark);color:var(--ink);border-color:var(--on-dark)}
+.open.sw-hero .btn.primary:hover{background:#fff;color:var(--ink);border-color:#fff}
+.btn.primary:hover{background:var(--spruce);border-color:var(--spruce)}
