@@ -168,6 +168,11 @@
 .ag-wnav button{width:36px;height:36px;border-radius:50%;border:1px solid var(--rule,#C4C7C1);background:#fff;color:var(--ink,#17201D);font-size:19px;line-height:1;cursor:pointer}\
 .ag-wnav span{font-size:12px;color:var(--ink-soft,#535A56);font-variant-numeric:tabular-nums}\
 .ag-wave{animation:agdrift 2.6s linear infinite}.ag-wave.b{animation-duration:3.8s;animation-direction:reverse}@keyframes agdrift{to{transform:translateX(-50px)}}\
+.ag-wlbl .ag-wlt{color:var(--spruce,#1D6657);letter-spacing:.08em;text-transform:uppercase;font-weight:700}\
+.ag-wlbl button.ag-wswap{border:0;background:none;padding:2px 0;font:600 12px var(--sans,system-ui,sans-serif);letter-spacing:0;text-transform:none;color:var(--spruce,#1D6657);text-decoration:underline;text-underline-offset:.2em;cursor:pointer}\
+.ag-game{display:block;width:100%;height:150px;border-radius:12px;background:#F5F5F2;touch-action:none;cursor:pointer;-webkit-user-select:none;user-select:none;outline:none}\
+.ag-game:focus-visible{box-shadow:0 0 0 2px var(--spruce,#1D6657)}\
+.ag-ghint{font-size:11px;color:var(--ink-soft,#535A56);text-align:center;margin:7px 0 0}\
 @media(prefers-reduced-motion:reduce){.ag-wave,.ag-globe.ag-pop{animation:none}.ag-wt,.ag-wqa,.ag-wstat span{transition:none}}\
 @media print{.ag-btn,.ag-panel,.ag-dim{display:none!important}}";
   var TICK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l5 2v4c0 3.2-2.1 5.6-5 6.9-2.9-1.3-5-3.7-5-6.9v-4z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.6 8.1l1.7 1.7 3.2-3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
@@ -433,6 +438,94 @@
       num("#17201D", "a") + lbl("#535A56") + '<g clip-path="url(#agw' + n + ')">' + num("#F2F3EF", "b") + lbl("#CFE1DA") + '</g></g>' +
       '<circle cx="50" cy="50" r="46.5" fill="none" stroke="#17201D" stroke-width="4"/></svg>';
   }
+  // ---------- Flappy Owl: a one-tap game for longer waits (Nov 2026) ----------
+  // Tap (or Space / Up when focused) to flap through the gaps. Best score is kept on this browser.
+  // If the answer lands mid-run, the run is never cut short: the answer waits above until the owl crashes.
+  function flappyOwl(onTouch) {
+    var H = 150, X = 58, R = 10, GRAV = 850, FLAP = -220, GAP = 62, PW = 26, SPACE = 150;
+    var cv = el("canvas", { class: "ag-game", tabindex: "0", role: "img", "aria-label": "Flappy Owl: tap or press space to fly through the gaps" });
+    var ctx = cv.getContext("2d"), W = 300, dpr = 1;
+    var best = parseInt(lget("flap") || "0", 10) || 0;
+    var state = "ready", y = H / 2, vy = 0, pipes = [], score = 0, bob = 0, overAt = 0, raf = 0, last = 0, on = false;
+    var ansReady = false, onOver = null;
+    function size() {
+      W = Math.max(200, Math.round(cv.clientWidth || 300)); dpr = Math.min(2, window.devicePixelRatio || 1);
+      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function reset() { y = H / 2; vy = 0; score = 0; pipes = []; for (var i = 0; i < 4; i++) addPipe(W + 40 + i * SPACE); }
+    function addPipe(x) { pipes.push({ x: x, gy: 26 + Math.random() * (H - GAP - 52), done: false }); }
+    function speed() { return 105 + Math.min(score, 15) * 4; }
+    function flap() {
+      onTouch();
+      if (state === "over") { if (ansReady || Date.now() - overAt < 450) return; reset(); state = "play"; vy = FLAP; return; }
+      if (state === "ready") { reset(); state = "play"; }
+      vy = FLAP;
+    }
+    function crash() {
+      state = "over"; overAt = Date.now();
+      if (score > best) { best = score; lset("flap", String(best)); }
+      if (ansReady && onOver) { var f = onOver; onOver = null; setTimeout(f, 900); }
+    }
+    function step(dt) {
+      if (state === "ready") { bob += dt; y = H / 2 + Math.sin(bob * 3) * 6; return; }
+      if (state !== "play") return;
+      vy += GRAV * dt; y += vy * dt;
+      if (y < R) { y = R; vy = 0; }
+      if (y > H - 8 - R) { y = H - 8 - R; return crash(); }
+      var v = speed() * dt;
+      for (var i = 0; i < pipes.length; i++) {
+        var p = pipes[i]; p.x -= v;
+        if (!p.done && p.x + PW < X - R) { p.done = true; score++; }
+        if (X + R - 3 > p.x && X - R + 3 < p.x + PW && (y - R + 3 < p.gy || y + R - 3 > p.gy + GAP)) return crash();
+      }
+      if (pipes[0].x < -PW) { pipes.shift(); addPipe(pipes[pipes.length - 1].x + SPACE); }
+    }
+    function owl() {
+      ctx.save(); ctx.translate(X, y); ctx.rotate(state === "play" ? Math.max(-0.45, Math.min(0.9, vy / 600)) : 0);
+      ctx.fillStyle = "#17201D";
+      ctx.beginPath(); ctx.moveTo(-8, -7); ctx.lineTo(-5, -15); ctx.lineTo(-1, -8); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(8, -7); ctx.lineTo(5, -15); ctx.lineTo(1, -8); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(0, 0, R, R + 1.5, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = "#E9EAE6"; ctx.beginPath(); ctx.arc(-3.6, -2, 3.8, 0, 7); ctx.arc(3.6, -2, 3.8, 0, 7); ctx.fill();
+      ctx.fillStyle = "#17201D"; ctx.beginPath(); ctx.arc(-3.2, -2, 1.6, 0, 7); ctx.arc(4, -2, 1.6, 0, 7); ctx.fill();
+      ctx.fillStyle = "#1D6657"; ctx.beginPath(); ctx.moveTo(-1.6, 1.5); ctx.lineTo(1.6, 1.5); ctx.lineTo(0, 4.5); ctx.fill();
+      ctx.restore();
+    }
+    function text(t, x, yy, sz, wt, col, al) { ctx.font = wt + " " + sz + "px Schibsted Grotesk,Helvetica Neue,Arial,sans-serif"; ctx.fillStyle = col; ctx.textAlign = al || "center"; ctx.fillText(t, x, yy); }
+    function draw() {
+      ctx.fillStyle = "#F5F5F2"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#1D6657";
+      for (var i = 0; i < pipes.length && state !== "ready"; i++) {
+        var p = pipes[i];
+        ctx.fillRect(p.x, 0, PW, p.gy); ctx.fillRect(p.x, p.gy + GAP, PW, H - p.gy - GAP);
+        ctx.fillRect(p.x - 3, p.gy - 7, PW + 6, 7); ctx.fillRect(p.x - 3, p.gy + GAP, PW + 6, 7);
+      }
+      ctx.fillStyle = "#D6D8D3"; ctx.fillRect(0, H - 8, W, 8);
+      owl();
+      if (state === "play") text(String(score), W - 12, 24, 20, 800, "#17201D", "right");
+      if (state === "ready") { text("Tap to fly", W / 2 + 20, H / 2 - 4, 16, 700, "#17201D"); text(best ? "Best: " + best : "Get the owl through the gaps", W / 2 + 20, H / 2 + 16, 11.5, 500, "#535A56"); }
+      if (state === "over") {
+        ctx.fillStyle = "rgba(245,245,242,.82)"; ctx.fillRect(0, 0, W, H);
+        text("Score " + score + "  ·  Best " + best, W / 2, H / 2 - 6, 16, 700, "#17201D");
+        text(ansReady ? "Your answer is ready ↑" : "Tap to try again", W / 2, H / 2 + 16, 12, 600, ansReady ? "#1D6657" : "#535A56");
+      }
+    }
+    function loop(t) {
+      if (!on) return;
+      var dt = Math.min(0.033, last ? (t - last) / 1000 : 0); last = t;
+      if (!document.hidden) { step(dt); draw(); }
+      raf = requestAnimationFrame(loop);
+    }
+    cv.addEventListener("pointerdown", function (e) { e.preventDefault(); flap(); });
+    cv.addEventListener("keydown", function (e) { if (e.key === " " || e.key === "ArrowUp" || e.key === "Enter") { e.preventDefault(); flap(); } });
+    return {
+      node: cv,
+      show: function () { if (on) return; size(); if (state !== "play") reset(); on = true; last = 0; raf = requestAnimationFrame(loop); },
+      hide: function () { on = false; cancelAnimationFrame(raf); if (state === "play") { state = "ready"; } },
+      playing: function () { return on && state === "play"; },
+      answerReady: function (cb) { ansReady = true; if (state === "play") onOver = cb; else { draw(); cb(); } }
+    };
+  }
   function thinking() {
     if (lastWait) { lastWait.kill(); lastWait = null; }
     var n = ++waitSeq, t0 = Date.now(), li = 0, lastTouch = -1e9, finished = false, timers = [];
@@ -441,15 +534,33 @@
     var bars = el("div", { class: "ag-wbars", "aria-hidden": "true" }, [el("i", { class: "on" }), el("i"), el("i")]);
     var deck = el("div", { class: "ag-deck", "aria-roledescription": "card deck" });
     var count = el("span");
+    // Two things to do while waiting: the game (default) or Gaurav's takes. The choice is remembered.
+    var game = flappyOwl(function () { lastTouch = Date.now(); });
+    var gameBox = el("div", {}, [game.node, el("p", { class: "ag-ghint", text: "Tap the box to flap. Your answer appears above when it's ready." })]);
+    var takesBox = el("div");
+    var view = lget("wview") === "takes" ? "takes" : "game";
+    var lblText = el("span", { class: "ag-wlt" });
+    var swapLink = el("button", { type: "button", class: "ag-wswap", onclick: function () { setView(view === "game" ? "takes" : "game"); } });
+    var slotOpen = false;
+    function setView(v) {
+      view = v; lset("wview", v); lastTouch = Date.now();
+      lblText.textContent = v === "game" ? "Game while you wait" : "Gaurav's takes";
+      swapLink.textContent = v === "game" ? "Gaurav's takes \u203A" : "Play the game \u203A";
+      gameBox.hidden = v !== "game"; takesBox.hidden = v !== "takes";
+      if (v === "game" && slotOpen) game.show(); else game.hide();
+    }
     var qa = el("div", { class: "ag-wqa", "aria-hidden": "true" }, [el("div", {}, [el("div", { class: "ag-wqa-in" }, [
-      el("div", { class: "ag-wlbl" }, [document.createTextNode("While you wait"), el("span", { text: "Gaurav's takes" })]),
-      deck,
+      el("div", { class: "ag-wlbl" }, [lblText, swapLink]),
+      gameBox,
+      takesBox
+    ])])]);
+    var takesBoxKids = [deck,
       el("div", { class: "ag-wnav" }, [
         el("button", { type: "button", "aria-label": "Previous take", text: "‹", onclick: function () { flip(-1, deck.lastChild); } }),
         count,
         el("button", { type: "button", "aria-label": "Next take", text: "›", onclick: function () { flip(1, deck.lastChild); } })
-      ])
-    ])])]);
+      ])];
+    takesBoxKids.forEach(function (k) { takesBox.appendChild(k); });
     var card = el("div", { class: "ag-wcard" }, [el("div", { class: "ag-wstat", role: "status" }, [stat]), bars,
       el("p", { class: "ag-wnote", text: "New questions take 10-20 seconds. Every fact is checked against his portfolio, by code and a second AI, before you see it." }), qa]);
     var box = el("div", { class: "ag-wt", hidden: "" }, [el("div", {}, [el("div", { class: "ag-wt-in" }, [globe, card])])]);
@@ -500,15 +611,15 @@
       stat.className = "ag-out2";
       setTimeout(function () { stat.textContent = s > 20 && li % 3 === 0 ? WAIT_LONG : WAIT_LINES[li % WAIT_LINES.length]; stat.className = ""; }, 200);
     }
-    renderDeck(); paint();
+    renderDeck(); setView(view); paint();
     var tick = setInterval(paint, 250), lines = setInterval(nextLine, 2600);
     // Fast answers (approved, cached) never flash the window: it appears only after 0.6 s
     timers.push(setTimeout(function () { box.hidden = false; scroll(); }, 600));
-    timers.push(setTimeout(function () { card.classList.add("ag-deckon"); qa.className = "ag-wqa on"; qa.setAttribute("aria-hidden", "false"); setTimeout(scroll, 520); }, 6000));
+    timers.push(setTimeout(function () { card.classList.add("ag-deckon"); qa.className = "ag-wqa on"; qa.setAttribute("aria-hidden", "false"); slotOpen = true; if (view === "game") game.show(); setTimeout(scroll, 520); }, 6000));
     function stop() { finished = true; clearInterval(tick); clearInterval(lines); timers.forEach(clearTimeout); }
     var api = {
       holding: false,
-      remove: function () { stop(); box.remove(); if (lastWait === api) lastWait = null; },
+      remove: function () { stop(); game.hide(); box.remove(); if (lastWait === api) lastWait = null; },
       kill: function () { api.remove(); },
       // The answer has landed: fill the globe, put the answer above the window, and fold the window
       // away once the visitor has stopped swiping (never pull a card from under a finger).
@@ -518,12 +629,17 @@
         for (var i = 0; i < 3; i++) bars.children[i].className = "on";
         stat.textContent = "Done. Every fact checked."; globe.classList.add("ag-pop");
         log.appendChild(box);
-        if (answerFirst) log.scrollTop += answerFirst.getBoundingClientRect().top - log.getBoundingClientRect().top - 12;
         api.holding = true;
+        function toAnswer() { if (answerFirst && answerFirst.parentNode) log.scrollTop += answerFirst.getBoundingClientRect().top - log.getBoundingClientRect().top - 12; }
+        function fold() { box.classList.add("ag-hide"); setTimeout(api.remove, 550); }
+        // Mid-run: keep the game in view and let the run finish; then show the answer and fold away.
+        if (game.playing()) { scroll(); return game.answerReady(function () { toAnswer(); setTimeout(fold, 400); }); }
+        game.answerReady(function () {});
+        toAnswer();
         (function waitIdle() {
           var idle = Date.now() - lastTouch;
           if (qa.className.indexOf("on") > -1 && idle < 2500) return setTimeout(waitIdle, 2550 - idle);
-          setTimeout(function () { box.classList.add("ag-hide"); setTimeout(api.remove, 550); }, 700);
+          setTimeout(fold, 700);
         })();
       }
     };
