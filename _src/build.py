@@ -137,7 +137,9 @@ PAGES = [
 REDIRECTS = {
     'work-with-me.html': 'consulting/',
     'swanubhava.html': 'swanubhava/',
-    'scenarios/compassion-fare.html': '../swanubhava/scenarios/compassion-fare.html',
+    # compassion fare hidden 24 Nov 2026 (about a month); restore from git d899283
+    'scenarios/compassion-fare.html': '../swanubhava/scenarios.html',
+    'swanubhava/scenarios/compassion-fare.html': '../scenarios.html',
 }
 OVERVIEW_JS = '''<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Moved</title>
 <meta name="robots" content="noindex"><link rel="canonical" href="https://gsj24983.github.io/">
@@ -153,7 +155,7 @@ q.delete('for');var s=q.toString();location.replace(to+(s?'?'+s:'')+h);})();</sc
 SW_COPY = ['site.css', 'training.css', 'site.js', 'training.js', 'ask.js', 'js/gsap.min.js', 'js/ScrollTrigger.min.js', 'js/moments.js',
            'fonts/schibsted-grotesk.woff2', 'fonts/tiro-devanagari-marathi-swanubhava.woff2', 'fonts/OFL-schibsted-grotesk.txt',
            'fonts/OFL-tiro-devanagari-marathi.txt', 'assets/split.css', 'assets/theme-sw.css', 'assets/og-swanubhava.png']
-SW_MOVE = ['scenarios/compassion-fare.html']
+SW_MOVE = []  # compassion fare hidden 24 Nov 2026; was ['scenarios/compassion-fare.html']
 
 # links from FT pages into each site's own pages
 LINKMAP = {
@@ -216,7 +218,7 @@ def rewrite_links(s, site, c, depth_prefix):
     """Point links at the right place for this site's folder."""
     for pat, rep in LINKMAP.get(site, []):
         s = re.sub(r'href="' + pat + '"', lambda m: 'href="' + m.expand(rep) + '"', s)
-    own = {h for h, _ in c['nav']} | {'scenarios/compassion-fare.html'} if site == 'sw' else {h for h, _ in c['nav']}
+    own = {h for h, _ in c['nav']}
     local = set(SW_COPY) if site == 'sw' else set()
 
     def fix(m):
