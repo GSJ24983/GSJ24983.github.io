@@ -120,10 +120,10 @@ PAGES = [
 
     ('sw', 'index.html', 'index.html', 'Swanubhava™ - product management behavioural training by Gaurav Joshi',
      'Most PM training teaches what to deliver. Swanubhava™ trains how you behave when it gets hard.',
-     '<!--#include pitch-tr-->\n' + INLINE_OWL + '\n<div class="swtr">\n<!--#include tr-content-->\n<!--#include tr-delivery-->\n<!--#include tr-flow-->\n<!--#include tr-science-->\n</div>\n<!--#include quote-tr-->\n<!--#include sw-signoff-->',
+     '<!--#include pitch-tr-->\n' + INLINE_OWL + '\n<div class="swtr">\n<!--#include tr-trailer-->\n<!--#include tr-content-->\n<!--#include tr-delivery-->\n<!--#include tr-flow-->\n<!--#include tr-science-->\n</div>\n<!--#include quote-tr-->\n<!--#include sw-signoff-->',
      ['tr-model', 'book', 'hw-tr'], ['training', 'gsap']),
     ('sw', 'scenarios.html', 'scenarios.html', 'Try a scenario - Swanubhava™', 'Play a Swanubhava™ scenario: make the calls in a real product moment.',
-     SR % 'Try a scenario' + '<div class="swtr">\n<!--#include tr-delivery-->\n</div>\n<section id="cases"><div class="wrap">\n<h2 class="head">The platform behind the scenarios</h2>\n<!--#include case-puppeteer-->\n</div></section>\n<!--#include sw-signoff-->',
+     SR % 'Try a scenario' + '<div class="swtr">\n<!--#include tr-delivery-->\n<!--#include tr-trailer-->\n</div>\n<section id="cases"><div class="wrap">\n<h2 class="head">The platform behind the scenarios</h2>\n<!--#include case-puppeteer-->\n</div></section>\n<!--#include sw-signoff-->',
      ['book', 'hw-tr'], []),
     ('sw', 'trainer.html', 'trainer.html', 'The trainer - Swanubhava™', 'Gaurav Joshi: career journey and what people say about working with him.',
      SR % 'The trainer' + '<!--#include journey-->\n<!--#include themes-->\n' + RECS_MENTOR_FIRST + '\n<!--#include curious-->\n<!--#include sw-signoff-->',
